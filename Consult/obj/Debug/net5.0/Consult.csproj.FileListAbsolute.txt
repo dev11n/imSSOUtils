@@ -1,0 +1,12 @@
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\bin\Debug\net5.0\Consult.deps.json
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\bin\Debug\net5.0\Consult.dll
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\bin\Debug\net5.0\ref\Consult.dll
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\bin\Debug\net5.0\Consult.pdb
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\obj\Debug\net5.0\Consult.csproj.AssemblyReference.cache
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\obj\Debug\net5.0\Consult.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\obj\Debug\net5.0\Consult.AssemblyInfoInputs.cache
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\obj\Debug\net5.0\Consult.AssemblyInfo.cs
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\obj\Debug\net5.0\Consult.csproj.CoreCompileInputs.cache
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\obj\Debug\net5.0\Consult.dll
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\obj\Debug\net5.0\ref\Consult.dll
+C:\Users\qqt\RiderProjects\imSSOUtils\Consult\obj\Debug\net5.0\Consult.pdb

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "imSSOUtils", "imSSOUtils\imSSOUtils.csproj", "{4946CEA8-97CA-4702-8C42-6E898B46265A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "imClickable", "imClickable\imClickable.csproj", "{A1282B92-8539-42CB-BCEA-B399C737AC6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consult", "Consult\Consult.csproj", "{3178737B-C950-43A1-A78C-8E5CB695883C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4946CEA8-97CA-4702-8C42-6E898B46265A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4946CEA8-97CA-4702-8C42-6E898B46265A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4946CEA8-97CA-4702-8C42-6E898B46265A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4946CEA8-97CA-4702-8C42-6E898B46265A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1282B92-8539-42CB-BCEA-B399C737AC6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1282B92-8539-42CB-BCEA-B399C737AC6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1282B92-8539-42CB-BCEA-B399C737AC6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1282B92-8539-42CB-BCEA-B399C737AC6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3178737B-C950-43A1-A78C-8E5CB695883C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3178737B-C950-43A1-A78C-8E5CB695883C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3178737B-C950-43A1-A78C-8E5CB695883C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3178737B-C950-43A1-A78C-8E5CB695883C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

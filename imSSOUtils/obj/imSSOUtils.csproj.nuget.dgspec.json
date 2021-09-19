@@ -1,0 +1,154 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imSSOUtils\\imSSOUtils.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imClickable\\imClickable.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imClickable\\imClickable.csproj",
+        "projectName": "imClickable",
+        "projectPath": "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imClickable\\imClickable.csproj",
+        "packagesPath": "C:\\Users\\qqt\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imClickable\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\qqt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://www.myget.org/F/mellinoe/api/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Coroutine": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "ImGui.NET": {
+              "target": "Package",
+              "version": "[1.78.0, )"
+            },
+            "Veldrid": {
+              "target": "Package",
+              "version": "[4.9.0-gffcf1cdb33, )"
+            },
+            "Veldrid.ImageSharp": {
+              "target": "Package",
+              "version": "[4.9.0-gffcf1cdb33, )"
+            },
+            "Veldrid.SDL2": {
+              "target": "Package",
+              "version": "[4.9.0-gffcf1cdb33, )"
+            },
+            "Veldrid.StartupUtilities": {
+              "target": "Package",
+              "version": "[4.9.0-gffcf1cdb33, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imSSOUtils\\imSSOUtils.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imSSOUtils\\imSSOUtils.csproj",
+        "projectName": "imSSOUtils",
+        "projectPath": "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imSSOUtils\\imSSOUtils.csproj",
+        "packagesPath": "C:\\Users\\qqt\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imSSOUtils\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\qqt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://www.myget.org/F/mellinoe/api/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imClickable\\imClickable.csproj": {
+                "projectPath": "C:\\Users\\qqt\\RiderProjects\\imSSOUtils\\imClickable\\imClickable.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

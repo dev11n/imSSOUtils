@@ -1,0 +1,12 @@
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\bin\Debug\net5.0\imClickable.deps.json
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\bin\Debug\net5.0\imClickable.dll
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\bin\Debug\net5.0\ref\imClickable.dll
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\bin\Debug\net5.0\imClickable.pdb
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\obj\Debug\net5.0\imClickable.csproj.AssemblyReference.cache
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\obj\Debug\net5.0\imClickable.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\obj\Debug\net5.0\imClickable.AssemblyInfoInputs.cache
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\obj\Debug\net5.0\imClickable.AssemblyInfo.cs
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\obj\Debug\net5.0\imClickable.csproj.CoreCompileInputs.cache
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\obj\Debug\net5.0\imClickable.dll
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\obj\Debug\net5.0\ref\imClickable.dll
+C:\Users\qqt\RiderProjects\imSSOUtils\imClickable\obj\Debug\net5.0\imClickable.pdb

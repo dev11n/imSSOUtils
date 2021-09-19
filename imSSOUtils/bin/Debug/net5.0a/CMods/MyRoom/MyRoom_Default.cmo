@@ -1,0 +1,5 @@
+Game->Silverglade->Gameplay_E01->QC40->Crane::Start();
+Game->Silverglade->Gameplay_E01->QC40->Crane::FileObjectUnLoad();
+Game->Silverglade->Gameplay_E01->QC40->Crane::SetFileObjectName("FO_Room_LoftBasic_Default::pxo");
+Game->Silverglade->Gameplay_E01->QC40->Crane::FileObjectLoad();
+Game->Silverglade->Gameplay_E01->QC40->Crane::Move(CurrentHorse);
