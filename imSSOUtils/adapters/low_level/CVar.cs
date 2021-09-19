@@ -81,7 +81,7 @@ namespace imSSOUtils.adapters.low_level
             hasCached01 = directAddress01.Length > 2;
         }
 
-        public static async Task setup_cvar_01()
+        public static async Task setup_cvar()
         {
             MemoryAdapter.head.inject_code(
                 $"global/QuestCollectCompleteWindow/Script/sText.GlobalAccessShortcut(\"TempString\");\nglobal/TempString.SetDataString(\"{direct_raw}\");");

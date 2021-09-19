@@ -75,7 +75,7 @@ namespace imSSOUtils.adapters
             sync_position(ssoClient);
             // ! Cache cvar
             show_white_message("Caching CVar...");
-            await CVar.setup_cvar_01();
+            await CVar.setup_cvar();
             show_white_message("SSOUtils loaded successfully. Have fun and keep the experience fair for everyone!");
         }
 
@@ -106,7 +106,7 @@ namespace imSSOUtils.adapters
         /// <summary>
         /// Inject code and execute it directly.
         /// </summary>
-        public static void direct_call(string newString, bool useTrickle = true) =>
-            head.inject_code(Alpine.proc_frm_string(dynamic_formatting(newString)), useTrickle);
+        public static void direct_call(string newString) =>
+            head.inject_code(Alpine.proc_frm_string(dynamic_formatting(newString)));
     }
 }
