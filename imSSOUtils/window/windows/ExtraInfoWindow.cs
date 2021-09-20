@@ -30,7 +30,9 @@ namespace imSSOUtils.window.windows
             ImGui.Text(
                 $"Current Horse Position: {pos.X}, {pos.Y}, {pos.Z}");
             if (CVar.hasCached01)
-                ImGui.Text(CVar.read_cvar_string());
+                ImGui.Text(CVar.read_cvar01_string());
+            if (CVar.hasCached02)
+                ImGui.Text(CVar.read_cvar02_string());
 
             ImGui.Text("Modding state: Enabled (alpine_v2_exp)");
             ImGui.End();

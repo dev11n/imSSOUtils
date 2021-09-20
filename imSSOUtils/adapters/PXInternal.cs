@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using CNLibrary;
@@ -18,8 +17,6 @@ namespace imSSOUtils.adapters
         /// </summary>
         public static string dc01_bytes, dc02_bytes, dc03_bytes, bypass_bytes;
 
-        public static readonly List<string> directAddresses = new();
-
         /// <summary>
         /// Web Addresses
         /// </summary>
@@ -29,16 +26,6 @@ namespace imSSOUtils.adapters
         /// Pointer addresses converted into real ones.
         /// </summary>
         private static UIntPtr xReal, yReal, zReal;
-
-        /// <summary>
-        /// Address for accessing a variables data.
-        /// </summary>
-        public static string directAddress = string.Empty;
-
-        /// <summary>
-        /// Determines whether the value of <see cref="directAddress"/> has been cached or not.
-        /// </summary>
-        public static bool hasCachedDirect;
 
         /// <summary>
         /// Web Addresses

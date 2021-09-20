@@ -20,7 +20,8 @@ namespace imSSOUtils.command.commands
             if (!MemoryAdapter.is_enabled()) return;
             try
             {
-                ConsoleWindow.send_input($"value: {CVar.read_cvar_string()}", "[developer]", Color.White);
+                ConsoleWindow.send_input($"value: {CVar.read_cvar01_string()}", "[developer]", Color.White);
+                ConsoleWindow.send_input($"value: {CVar.read_cvar02_string()}", "[developer]", Color.White);
             }
             catch (Exception e)
             {

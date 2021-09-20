@@ -106,7 +106,14 @@ namespace imSSOUtils.adapters
         /// <summary>
         /// Inject code and execute it directly.
         /// </summary>
-        public static void direct_call(string newString) =>
-            head.inject_code(Alpine.proc_frm_string(dynamic_formatting(newString)));
+        public static void direct_call(string newString)
+        {
+            if (CVar.hasCachedAll) CVar.write_cvar02("\"FALSE\"", "String");
+            // CVar_02 is modified again inside the string below if everything has been cached.
+            head.inject_code(Alpine.proc_frm_string(dynamic_formatting(newString)) +
+                             "\nglobal/ReportWindow.SetScaleX(0.0);" + (CVar.hasCachedAll
+                                 ? "\nglobal/CSIInspectView/FailedMessageData.SetDataString(\"TRUE\");"
+                                 : string.Empty));
+        }
     }
 }
