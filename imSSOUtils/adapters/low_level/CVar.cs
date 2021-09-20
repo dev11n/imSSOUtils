@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using static System.String;
 using static imSSOUtils.registers.InternalRegister;
 
 namespace imSSOUtils.adapters.low_level
 {
-    public readonly struct CVar
+    internal readonly struct CVar
     {
         #region Variables
         /// <summary>
         /// Addresses for CVars.
         /// </summary>
-        private static readonly List<string> directAddresses01 = new(), directAddresses02 = new();
+        public static readonly List<string> directAddresses01 = new(), directAddresses02 = new();
 
         /// <summary>
         /// Addresses for accessing a variables data.
@@ -88,7 +87,7 @@ namespace imSSOUtils.adapters.low_level
         /// <param name="data">Data to be written</param>
         /// <param name="type">The type (String, Int, etc) - Case-Sensitive</param>
         public static void write_cvar01(string data, string type) =>
-            MemoryAdapter.head.inject_code($"Game->TempString::SetData{type}({data});");
+            MemoryAdapter.head.get_consult().Memory.write_string(directAddress01, data);
 
         /// <summary>
         /// Write to CVar
@@ -130,18 +129,18 @@ namespace imSSOUtils.adapters.low_level
                 directAddresses02.Clear();
                 foreach (var address in await MemoryAdapter.head.aob_scan(direct02, true))
                 {
-                    var add = $"0x{address:X}";
-                    directAddresses02.Add(add);
-                    MemoryAdapter.head.get_consult().Memory.write_string(add, direct02_raw_rescan);
+                    var field = $"0x{address:X}";
+                    directAddresses02.Add(field);
+                    MemoryAdapter.head.get_consult().Memory.write_string(field, direct02_raw2);
                 }
 
                 foreach (var address in directAddresses02)
-                    if (MemoryAdapter.head.get_consult().Memory.read_string(address).StartsWith(direct02_raw_rescan))
-                    {
-                        Debug.WriteLine("---------> CAD02");
-                        Debug.WriteLine(address);
+                    if (MemoryAdapter.head.get_consult().Memory.read_string(address).StartsWith(direct02_raw2))
+                        MemoryAdapter.direct_call(
+                            $"Game->GUI_RescueRanchBoard->Attributes->Name::SetDataString(\"{direct02_raw3}\");");
+                foreach (var address in directAddresses02)
+                    if (MemoryAdapter.head.get_consult().Memory.read_string(address).StartsWith(direct02_raw3))
                         directAddress02 = address;
-                    }
             }
 
             hasCached02 = directAddress02.Length > 2;
@@ -153,9 +152,6 @@ namespace imSSOUtils.adapters.low_level
                 $"Game->QuestCollectCompleteWindow->Script->sText::GlobalAccessShortcut(\"TempString\");\nGame->TempString::SetDataString(\"{direct_raw}\");");
             await Task.Delay(300);
             await cache_cvar01();
-            MemoryAdapter.direct_call($"Game->CSIInspectView->FailedMessageData::SetDataString(\"{direct02_raw}\");");
-            await Task.Delay(300);
-            await cache_cvar02();
             hasCachedAll = true;
         }
     }

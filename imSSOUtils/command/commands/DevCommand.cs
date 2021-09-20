@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using imSSOUtils.adapters;
+using imSSOUtils.adapters.extensions;
 using imSSOUtils.adapters.low_level;
 using imSSOUtils.window.windows;
 
@@ -21,7 +22,11 @@ namespace imSSOUtils.command.commands
             try
             {
                 ConsoleWindow.send_input($"value: {CVar.read_cvar01_string()}", "[developer]", Color.White);
-                ConsoleWindow.send_input($"value: {CVar.read_cvar02_string()}", "[developer]", Color.White);
+                foreach (var address in CVar.directAddresses02)
+                {
+                    ConsoleWindow.send_input($"value: {MemoryAdapter.head.get_consult().Memory.read_string(address).GetUntilOrEmpty("\");")}",
+                        "[developer]", Color.White);
+                }
             }
             catch (Exception e)
             {
