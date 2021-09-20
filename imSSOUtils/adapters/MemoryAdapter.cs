@@ -81,7 +81,6 @@ namespace imSSOUtils.adapters
             var ssoClient = Process.GetProcessesByName(runtime).FirstOrDefault();
             sync_position(ssoClient);
             // ! Cache cvar
-            show_white_message("Caching CVar...");
             await CVar.setup_cvar();
             show_white_message("SSOUtils loaded successfully. Have fun and keep the experience fair for everyone!");
         }
@@ -122,24 +121,22 @@ namespace imSSOUtils.adapters
                            ? "\nglobal/CSIInspectView/FailedMessageData.SetDataString(\"1\");"
                            : string.Empty);
             head.inject_code(code);
-            if (CVar.hasCachedAll)
+            if (!CVar.hasCachedAll) return;
+            // Check 5 times if executing the mod failed (a.k.a the entire code failed to execute)
+            for (var i = 0; i < 5; i++)
             {
-                // Check 5 times if executing the mod failed (a.k.a the entire code failed to execute)
-                for (var i = 0; i < 5; i++)
-                {
-                    // If its 1, return and exit the loop.
-                    if (CVar.read_cvar02_int() is 1) return;
-                    // Failed (its 0 / false, a.k.a it failed executing in one way or another), try and fix it
-                    ConsoleWindow.send_input($"failed executing mod, trying to recover ({i + 1}/5)", "[alpine internal]",
-                        Color.OrangeRed);
-                    code += $"\n// {head.get_random_string(10)}";
-                    head.inject_code(code);
-                }
-
-                if (CVar.read_cvar02_int() is not 1) return;
-                ConsoleWindow.send_input("failed executing mod, please check your code and try again (5/5)",
-                    "[alpine internal]", Color.OrangeRed);
+                // If its 1, return and exit the loop.
+                if (CVar.read_cvar02_int() is 1) return;
+                // Failed (its 0 / false, a.k.a it failed executing in one way or another), try and fix it
+                ConsoleWindow.send_input($"failed executing mod, trying to recover ({i + 1}/5)", "[alpine internal]",
+                    Color.OrangeRed);
+                code += $"\n// {head.get_random_string(10)}";
+                head.inject_code(code);
             }
+
+            if (CVar.read_cvar02_int() is not 1) return;
+            ConsoleWindow.send_input("failed executing mod, please check your code and try again (5/5)",
+                "[alpine internal]", Color.OrangeRed);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace imSSOUtils.adapters.low_level
         /// <summary>
         /// Addresses for CVars.
         /// </summary>
-        public static readonly List<string> directAddresses01 = new(), directAddresses02 = new();
+        private static readonly List<string> directAddresses01 = new(), directAddresses02 = new();
 
         /// <summary>
         /// Addresses for accessing a variables data.
@@ -85,8 +85,9 @@ namespace imSSOUtils.adapters.low_level
         /// Write to CVar
         /// </summary>
         /// <param name="data">Data to be written</param>
-        public static void write_cvar01(string data) =>
-            MemoryAdapter.head.get_consult().Memory.write_string(directAddress01, data);
+        /// <param name="type">The type to write (Int, String, etc) | Case-sensitive</param>
+        public static void write_cvar01(string data, string type) =>
+            MemoryAdapter.direct_call($"Game->TempString::SetData{type}({data});");
 
         /// <summary>
         /// Write to CVar
@@ -98,7 +99,7 @@ namespace imSSOUtils.adapters.low_level
         /// <summary>
         /// Cache CVar
         /// </summary>
-        public static async Task cache_cvar01()
+        private static async Task cache_cvar01()
         {
             if (hasCached01) return;
             // ? Do this twice because SSO has brain issues.
@@ -118,7 +119,7 @@ namespace imSSOUtils.adapters.low_level
         /// <summary>
         /// Cache CVar
         /// </summary>
-        public static async Task cache_cvar02()
+        private static async Task cache_cvar02()
         {
             if (hasCached02) return;
             // ? Do this twice because SSO has brain issues.
@@ -135,12 +136,17 @@ namespace imSSOUtils.adapters.low_level
             hasCached02 = directAddress02.Length > 2;
         }
 
+        /// <summary>
+        /// Setup CVar.
+        /// </summary>
         public static async Task setup_cvar()
         {
+            PXInternal.show_white_message("Caching CVar_01. Stand still!");
             MemoryAdapter.direct_call(
                 $"Game->QuestCollectCompleteWindow->Script->sText::GlobalAccessShortcut(\"TempString\");\nGame->TempString::SetDataString(\"{direct_raw}\");");
             await Task.Delay(300);
             await cache_cvar01();
+            PXInternal.show_white_message("Caching CVar_02. Stand still!");
             MemoryAdapter.direct_call($"Game->CSIInspectView->FailedMessageData::SetDataString(\"{direct02_raw}\");");
             await Task.Delay(300);
             await cache_cvar02();

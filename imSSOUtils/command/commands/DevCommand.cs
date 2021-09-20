@@ -23,6 +23,7 @@ namespace imSSOUtils.command.commands
             try
             {
                 CVar.write_cvar02(test[new Random().Next(0, test.Length)]);
+                CVar.write_cvar01("global/MoorlandStable.GetName()", "String");
                 ConsoleWindow.send_input($"value: {CVar.read_cvar01_string()}", "[developer]", Color.White);
                 ConsoleWindow.send_input($"value: {CVar.read_cvar02_string()}", "[developer]", Color.White);
             }
