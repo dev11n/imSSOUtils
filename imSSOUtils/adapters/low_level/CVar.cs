@@ -91,6 +91,8 @@ namespace imSSOUtils.adapters.low_level
 
         /// <summary>
         /// Write to CVar
+        /// <para>This uses direct writing and can't easily retrieve in-game data like CVar_01.</para>
+        /// <para>Only use this for checking whether a mod has been executed or not.</para>
         /// </summary>
         /// <param name="data">Data to be written</param>
         public static void write_cvar02(string data) =>

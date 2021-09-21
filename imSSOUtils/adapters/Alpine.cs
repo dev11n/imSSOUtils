@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text.RegularExpressions;
 using imSSOUtils.adapters.extensions;
 using imSSOUtils.customs;
 
@@ -90,7 +91,9 @@ namespace imSSOUtils.adapters
         public static string proc_frm_string(string content)
         {
             var newContent = force_kill(content);
-            foreach (var set in sets) newContent = newContent.Replace(set.Key, set.Value);
+            foreach (var set in sets)
+                if (!Regex.Match(newContent, @$"\b{set.Key}\b").Success && set.Key.Length > 3)
+                    newContent = newContent.Replace(set.Key, set.Value);
             if (content.Contains("Spectate")) newContent += "global/IntroCam1.Stop();";
             return newContent;
         }
