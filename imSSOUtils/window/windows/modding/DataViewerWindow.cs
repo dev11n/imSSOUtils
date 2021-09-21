@@ -24,9 +24,10 @@ namespace imSSOUtils.window.windows.modding
         private static readonly byte[] data = new byte[100];
 
         /// <summary>
-        /// The window size.
+        /// Sizes.
         /// </summary>
-        private readonly Vector2 size = new(767, 420);
+        private readonly Vector2 main = new(767, 420),
+            child = new(750, 335);
         #endregion
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace imSSOUtils.window.windows.modding
                 return;
             }
 
-            ImGui.SetWindowSize(size);
+            ImGui.SetWindowSize(main);
             draw_centre();
             ImGui.PushItemWidth(750);
             ImTools.CentreText("Everything you write is automatically converted to Alpine!");
@@ -82,7 +83,7 @@ namespace imSSOUtils.window.windows.modding
         /// </summary>
         private void draw_centre()
         {
-            ImGui.BeginChild("Centre", new Vector2(750, 335));
+            ImGui.BeginChild("Centre", child);
             foreach (var tree in treeNodes)
             {
                 if (ImGui.TreeNode(tree.Key))
