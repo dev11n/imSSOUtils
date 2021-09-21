@@ -98,11 +98,6 @@ namespace imSSOUtils.adapters
             return newContent;
         }
 
-        private static void setup_sky_presets()
-        {
-            if (!Directory.Exists(skyPresets)) Directory.CreateDirectory(skyPresets);
-        }
-
         /// <summary>
         /// Refresh the entire CMods list.
         /// </summary>
