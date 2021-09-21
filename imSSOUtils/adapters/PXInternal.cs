@@ -131,43 +131,6 @@ namespace imSSOUtils.adapters
             "Game->ReportWindow::SetScaleX(0);");
 
         /// <summary>
-        /// Displays a basic middle-aligned text message.
-        /// </summary>
-        /// <param name="identifier"></param>
-        public static void show_white_message_identifier(string identifier) => MemoryAdapter.direct_call(
-            $"Game->GUI_RescueRanch_InfoText::SetViewText( {identifier} );\n" +
-            "Game->GUI_RescueRanch_InfoText::Start();\n" +
-            "Game->GUI_RescueRanch_InfoText->Duration::Start();\n" +
-            "Game->ReportWindow::SetScaleX(0);");
-
-        /// <summary>
-        /// Retrieves the code in order to show a basic white text message.
-        /// </summary>
-        /// <param name="text"></param>
-        public static string get_white_text_message(string text) =>
-            $"Game->GUI_RescueRanch_InfoText::SetViewText( \"{text}\" );\n" +
-            "Game->GUI_RescueRanch_InfoText::Start();\n" +
-            "Game->GUI_RescueRanch_InfoText->Duration::Start();";
-
-        /// <summary>
-        /// Displays a basic middle-aligned text message.
-        /// </summary>
-        /// <param name="value"></param>
-        public static void show_white_message(int value) => MemoryAdapter.direct_call(
-            $"Game->GUI_RescueRanch_InfoText::SetViewTextInt({value});\n" +
-            "Game->GUI_RescueRanch_InfoText::Start();\n" +
-            "Game->GUI_RescueRanch_InfoText->Duration::Start();");
-
-        /// <summary>
-        /// Retrieves the code in order to show a basic white int message.
-        /// </summary>
-        /// <param name="value"></param>
-        public static string get_white_int_message(string value) =>
-            $"Game->GUI_RescueRanch_InfoText::SetViewTextInt( {value} );\n" +
-            "Game->GUI_RescueRanch_InfoText::Start();\n" +
-            "Game->GUI_RescueRanch_InfoText->Duration::Start();";
-
-        /// <summary>
         /// Get the child count of a specific object.
         /// </summary>
         /// <param name="gObject">The object</param>

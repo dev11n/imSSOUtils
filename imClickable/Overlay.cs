@@ -12,10 +12,10 @@ namespace imClickable
     /// </summary>
     public static class Overlay
     {
-        private static readonly Sdl2Window window;
-        private static readonly GraphicsDevice graphicsDevice;
+        public static readonly Sdl2Window window;
+        public static readonly GraphicsDevice graphicsDevice;
         private static readonly CommandList commandList;
-        private static readonly ImGuiController imController;
+        public static readonly ImGuiController imController;
         private static readonly Vector4 clearColor;
         private static bool terminal = true;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using ImGuiNET;
@@ -11,7 +12,7 @@ namespace imClickable
     /// A modified version of Veldrid.ImGui's ImGuiRenderer.
     /// Manages input for ImGui and handles rendering ImGui's DrawLists with Veldrid.
     /// </summary>
-    internal sealed class ImGuiController : IDisposable
+    public sealed class ImGuiController : IDisposable
     {
         private GraphicsDevice _gd;
         private bool _frameBegun;
@@ -24,6 +25,11 @@ namespace imClickable
         private TextureView _fontTextureView;
         private Texture _fontTexture;
         private Pipeline _pipeline;
+
+        public static ImFontPtr comfortaa_SemiBold_Large,
+            comfortaa_SemiBold_Main,
+            comfortaa_SemiBold_Medium,
+            comfortaa_SemiBold_Small;
 
         private readonly IntPtr _fontAtlasID = (IntPtr) 1;
         private bool _controlDown, _shiftDown, _altDown, _winKeyDown;
@@ -49,8 +55,18 @@ namespace imClickable
 
             var context = ImGui.CreateContext();
             ImGui.SetCurrentContext(context);
+            // Begin fonts
             ImGui.GetIO().Fonts.AddFontDefault();
-
+            var path = Path.Combine(Environment.CurrentDirectory, @"assets\fonts\comfortaa\");
+            comfortaa_SemiBold_Main =
+                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(path, "Comfortaa-SemiBold.ttf"), 14);
+            comfortaa_SemiBold_Large =
+                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(path, "Comfortaa-SemiBold.ttf"), 18);
+            comfortaa_SemiBold_Medium =
+                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(path, "Comfortaa-SemiBold.ttf"), 12);
+            comfortaa_SemiBold_Small =
+                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(path, "Comfortaa-SemiBold.ttf"), 10);
+            // End fonts
             CreateDeviceResources(gd, outputDescription);
             SetKeyMappings();
 
@@ -221,7 +237,7 @@ namespace imClickable
         /// <summary>
         /// Recreates the device texture used to render text.
         /// </summary>
-        private void RecreateFontDeviceTexture(GraphicsDevice gd)
+        public void RecreateFontDeviceTexture(GraphicsDevice gd)
         {
             var io = ImGui.GetIO();
             // Build

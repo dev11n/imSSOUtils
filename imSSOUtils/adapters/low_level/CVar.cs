@@ -104,7 +104,7 @@ namespace imSSOUtils.adapters.low_level
         private static async Task cache_cvar01()
         {
             if (hasCached01) return;
-            // ? Do this twice because SSO has brain issues.
+            // ? Do this 4 times because SSO has brain issues.
             for (var i = 0; i < 4; i++)
             {
                 directAddresses01.Clear();
@@ -124,7 +124,7 @@ namespace imSSOUtils.adapters.low_level
         private static async Task cache_cvar02()
         {
             if (hasCached02) return;
-            // ? Do this twice because SSO has brain issues.
+            // ? Do this 4 times because SSO has brain issues.
             for (var i = 0; i < 4; i++)
             {
                 directAddresses02.Clear();

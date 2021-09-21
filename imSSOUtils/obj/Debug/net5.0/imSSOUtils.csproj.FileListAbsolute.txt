@@ -48,3 +48,10 @@ C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\Vortice.Runtim
 C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\System.Security.Principal.Windows.dll
 C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\Consult.dll
 C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\OTFE.dll
+C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\Comfortaa-Bold.ttf
+C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\Comfortaa-Light.ttf
+C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\Comfortaa-Medium.ttf
+C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\Comfortaa-Regular.ttf
+C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\Comfortaa-SemiBold.ttf
+C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\OFL.txt
+C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\README.txt

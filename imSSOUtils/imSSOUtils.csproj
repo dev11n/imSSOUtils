@@ -20,15 +20,39 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Consult, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>..\..\Consult\Consult\bin\Debug\Consult.dll</HintPath>
-      </Reference>
-      <Reference Include="OTFE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <HintPath>..\..\OTFE\OTFE\bin\Debug\OTFE.dll</HintPath>
-      </Reference>
-      <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-        <HintPath>..\..\..\..\..\Program Files\dotnet\shared\Microsoft.NETCore.App\5.0.9\System.Security.Principal.Windows.dll</HintPath>
-      </Reference>
+        <Reference Include="Consult, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>..\..\Consult\Consult\bin\Debug\Consult.dll</HintPath>
+        </Reference>
+        <Reference Include="OTFE, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <HintPath>..\..\OTFE\OTFE\bin\Debug\OTFE.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Security.Principal.Windows, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+            <HintPath>..\..\..\..\..\Program Files\dotnet\shared\Microsoft.NETCore.App\5.0.9\System.Security.Principal.Windows.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="assets\fonts\comfortaa\Comfortaa-Bold.ttf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="assets\fonts\comfortaa\Comfortaa-Light.ttf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="assets\fonts\comfortaa\Comfortaa-Medium.ttf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="assets\fonts\comfortaa\Comfortaa-Regular.ttf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="assets\fonts\comfortaa\Comfortaa-SemiBold.ttf">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="assets\fonts\comfortaa\OFL.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="assets\fonts\comfortaa\README.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

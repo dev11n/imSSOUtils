@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Coroutine;
 using imClickable;
+using ImGuiNET;
 using imSSOUtils.adapters;
 using imSSOUtils.command;
 using imSSOUtils.command.commands;
@@ -63,7 +64,8 @@ namespace imSSOUtils
                 await WebAdapter.cache_api();
                 if (!Debugger.IsAttached) await verify_version();
                 CoroutineHandler.Start(SubmitRenderLogic());
-                patch();
+                //if (!Debugger.IsAttached) 
+                    patch();
                 PXOverlay.begin_check();
                 // ! KeyboardHook.start(); -- This has major performance issues and should be rewritten!
                 Overlay.RunInfiniteLoop();
@@ -143,7 +145,11 @@ namespace imSSOUtils
                 for (var i = 0; i < wnd.Length; i++)
                 {
                     var window = wnd[i];
-                    if (window.shouldDisplay) window.draw();
+                    if (window.shouldDisplay)
+                    {
+                        ImGui.PushFont(ImGuiController.comfortaa_SemiBold_Main);
+                        window.draw();
+                    }
                 }
             }
         }
