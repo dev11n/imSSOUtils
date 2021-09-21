@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using DriverProgram.adapters;
 using ImGuiNET;
+using static ImGuiNET.ImGuiCol;
 
 namespace imSSOUtils.coatings
 {
@@ -42,34 +43,34 @@ namespace imSSOUtils.coatings
             style.FramePadding = new Vector2(8, 6);
 
             // ? Title
-            colours[(int) ImGuiCol.TitleBg] = orange;
-            colours[(int) ImGuiCol.TitleBgActive] = orange;
-            colours[(int) ImGuiCol.TitleBgCollapsed] = ColourAdapter.rgba_to_frgba(0, 0, 0, 130);
+            colours[(int) TitleBg] = orange;
+            colours[(int) TitleBgActive] = orange;
+            colours[(int) TitleBgCollapsed] = ColourAdapter.rgba_to_frgba(0, 0, 0, 130);
             // ? Buttons
-            colours[(int) ImGuiCol.Button] = gray;
-            colours[(int) ImGuiCol.ButtonActive] = gray;
-            colours[(int) ImGuiCol.ButtonHovered] = ColourAdapter.rgba_to_frgba(41, 40, 41, 255);
+            colours[(int) Button] = gray;
+            colours[(int) ButtonActive] = gray;
+            colours[(int) ButtonHovered] = ColourAdapter.rgba_to_frgba(41, 40, 41, 255);
             // ? Separator
-            colours[(int) ImGuiCol.Separator] = light_gray;
-            colours[(int) ImGuiCol.SeparatorActive] = light_gray;
-            colours[(int) ImGuiCol.SeparatorHovered] = ColourAdapter.rgba_to_frgba(76, 76, 76, 255);
+            colours[(int) Separator] = light_gray;
+            colours[(int) SeparatorActive] = light_gray;
+            colours[(int) SeparatorHovered] = ColourAdapter.rgba_to_frgba(76, 76, 76, 255);
             // ? Frame Background
-            colours[(int) ImGuiCol.FrameBg] = gray_alt;
-            colours[(int) ImGuiCol.FrameBgActive] = gray_alt;
-            colours[(int) ImGuiCol.FrameBgHovered] = ColourAdapter.rgba_to_frgba(37, 36, 37, 255);
+            colours[(int) FrameBg] = gray_alt;
+            colours[(int) FrameBgActive] = gray_alt;
+            colours[(int) FrameBgHovered] = ColourAdapter.rgba_to_frgba(37, 36, 37, 255);
             // ? Header
-            colours[(int) ImGuiCol.Header] = black;
-            colours[(int) ImGuiCol.HeaderActive] = black;
-            colours[(int) ImGuiCol.HeaderHovered] = ColourAdapter.rgba_to_frgba(46, 46, 46, 255);
+            colours[(int) Header] = black;
+            colours[(int) HeaderActive] = black;
+            colours[(int) HeaderHovered] = ColourAdapter.rgba_to_frgba(46, 46, 46, 255);
             // ? Checkbox
-            colours[(int) ImGuiCol.CheckMark] = ColourAdapter.rgba_to_frgba(255, 101, 53, 255);
+            colours[(int) CheckMark] = ColourAdapter.rgba_to_frgba(255, 101, 53, 255);
             // ? Tabs
-            colours[(int) ImGuiCol.Tab] = orange;
-            colours[(int) ImGuiCol.TabActive] = orange;
-            colours[(int) ImGuiCol.TabHovered] = orange_alt;
+            colours[(int) Tab] = orange;
+            colours[(int) TabActive] = orange;
+            colours[(int) TabHovered] = orange_alt;
             // ? Sliders
-            colours[(int) ImGuiCol.SliderGrab] = orange;
-            colours[(int) ImGuiCol.SliderGrabActive] = orange_alt;
+            colours[(int) SliderGrab] = orange;
+            colours[(int) SliderGrabActive] = orange_alt;
         }
     }
 }

@@ -29,11 +29,6 @@ namespace imSSOUtils.adapters
         public static readonly OTFEHead head = new();
 
         /// <summary>
-        /// <see cref="Random"/> instance.
-        /// </summary>
-        private static readonly Random rand = new();
-
-        /// <summary>
         /// Window dimensions.
         /// </summary>
         private static WinAPI.Dimensions dim;
@@ -114,29 +109,37 @@ namespace imSSOUtils.adapters
         /// </summary>
         public static void direct_call(string newString)
         {
-            if (CVar.hasCachedAll) CVar.write_cvar02("0");
-            // CVar_02 is modified again inside the string below if everything has been cached.
-            var code = Alpine.proc_frm_string(dynamic_formatting(newString)) +
-                       "\nglobal/ReportWindow.SetScaleX(0.0);" + (CVar.hasCachedAll
-                           ? "\nglobal/CSIInspectView/FailedMessageData.SetDataString(\"1\");"
-                           : string.Empty);
-            head.inject_code(code);
-            if (!CVar.hasCachedAll) return;
-            // Check 5 times if executing the mod failed (a.k.a the entire code failed to execute)
-            for (var i = 0; i < 5; i++)
+            try
             {
-                // If its 1, return and exit the loop.
-                if (CVar.read_cvar02_int() is 1) return;
-                // Failed (its 0 / false, a.k.a it failed executing in one way or another), try and fix it
-                ConsoleWindow.send_input($"failed executing mod, trying to recover ({i + 1}/5)", "[alpine internal]",
-                    Color.OrangeRed);
-                code += $"\n// {head.get_random_string(10)}";
+                if (CVar.hasCachedAll) CVar.write_cvar02("0");
+                // CVar_02 is modified again inside the string below if everything has been cached.
+                var code = Alpine.proc_frm_string(dynamic_formatting(newString)) +
+                           "\nglobal/ReportWindow.SetScaleX(0.0);" + (CVar.hasCachedAll
+                               ? "\nglobal/CSIInspectView/FailedMessageData.SetDataString(\"1\");"
+                               : string.Empty);
                 head.inject_code(code);
-            }
+                if (!CVar.hasCachedAll) return;
+                // Check 5 times if executing the mod failed (a.k.a the entire code failed to execute)
+                for (var i = 0; i < 5; i++)
+                {
+                    // If its 1, return and exit the loop.
+                    if (CVar.read_cvar02_int() is 1) return;
+                    // Failed (its 0 / false, a.k.a it failed executing in one way or another), try and fix it
+                    ConsoleWindow.send_input($"failed executing mod, trying to recover ({i + 1}/5)",
+                        "[alpine internal]",
+                        Color.OrangeRed);
+                    code += $"\n// {head.get_random_string(10)}";
+                    head.inject_code(code);
+                }
 
-            if (CVar.read_cvar02_int() is not 1) return;
-            ConsoleWindow.send_input("failed executing mod, please check your code and try again (5/5)",
-                "[alpine internal]", Color.OrangeRed);
+                if (CVar.read_cvar02_int() is not 1) return;
+                ConsoleWindow.send_input("failed executing mod, please check your code and try again (5/5)",
+                    "[alpine internal]", Color.OrangeRed);
+            }
+            catch (Exception e)
+            {
+                Program.write_crash(e);
+            }
         }
     }
 }
