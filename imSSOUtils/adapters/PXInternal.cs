@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Numerics;
 using CNLibrary;
+using imSSOUtils.adapters.low_level;
 using imSSOUtils.window.windows;
 
 namespace imSSOUtils.adapters
@@ -165,6 +166,17 @@ namespace imSSOUtils.adapters
             $"Game->GUI_RescueRanch_InfoText::SetViewTextInt( {value} );\n" +
             "Game->GUI_RescueRanch_InfoText::Start();\n" +
             "Game->GUI_RescueRanch_InfoText->Duration::Start();";
+
+        /// <summary>
+        /// Get the child count of a specific object.
+        /// </summary>
+        /// <param name="gObject">The object</param>
+        /// <returns></returns>
+        public static int get_child_count(string gObject)
+        {
+            CVar.write_cvar01($"{Alpine.proc_frm_string(gObject)}::GetChildCount()", "Int");
+            return CVar.read_cvar01_int();
+        }
 
         /// <summary>
         /// Draws the current location.

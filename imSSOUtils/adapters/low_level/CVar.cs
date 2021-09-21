@@ -143,12 +143,12 @@ namespace imSSOUtils.adapters.low_level
         /// </summary>
         public static async Task setup_cvar()
         {
-            PXInternal.show_white_message("Caching CVar_01. Stand still!");
+            PXInternal.show_white_message("Caching CVar_01");
             MemoryAdapter.direct_call(
                 $"Game->QuestCollectCompleteWindow->Script->sText::GlobalAccessShortcut(\"TempString\");\nGame->TempString::SetDataString(\"{direct_raw}\");");
             await Task.Delay(300);
             await cache_cvar01();
-            PXInternal.show_white_message("Caching CVar_02. Stand still!");
+            PXInternal.show_white_message("Caching CVar_02");
             MemoryAdapter.direct_call($"Game->CSIInspectView->FailedMessageData::SetDataString(\"{direct02_raw}\");");
             await Task.Delay(300);
             await cache_cvar02();

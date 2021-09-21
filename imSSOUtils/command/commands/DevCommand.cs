@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using imSSOUtils.adapters;
-using imSSOUtils.adapters.low_level;
+using imSSOUtils.window.windows;
 
 namespace imSSOUtils.command.commands
 {
@@ -19,7 +20,8 @@ namespace imSSOUtils.command.commands
             if (!MemoryAdapter.is_enabled() || !Debugger.IsAttached) return;
             try
             {
-                CVar.write_cvar01("global/MoorlandStable.GetName()", "String");
+                ConsoleWindow.send_input($"count: {PXInternal.get_child_count("CurrentHorse")}", "[developer]",
+                    Color.White);
             }
             catch (Exception e)
             {
