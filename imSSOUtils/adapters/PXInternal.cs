@@ -174,8 +174,32 @@ namespace imSSOUtils.adapters
         /// <returns></returns>
         public static int get_child_count(string gObject)
         {
-            CVar.write_cvar01($"{Alpine.proc_frm_string(gObject)}::GetChildCount()", "Int");
-            return CVar.read_cvar01_int();
+            try
+            {
+                CVar.write_cvar01($"{gObject}::GetChildCount()", "Int");
+                return CVar.read_cvar01_int();
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Get a child's name from a specific objects index.
+        /// </summary>
+        /// <param name="gObject"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static string get_child_name(string gObject, int index)
+        {
+            // ! Disable printing of errors as it'll get spammy, even though it fixes it automatically
+            MemoryAdapter.print_autofix_errors(false);
+            MemoryAdapter.direct_call($"{gObject}::SetChildGlobalAccessShortcut(\"DVVa\", {index});");
+            CVar.write_cvar01("Game->DVVa::GetName()", "String");
+            // ! Enable again
+            MemoryAdapter.print_autofix_errors(true);
+            return CVar.read_cvar01_string();
         }
 
         /// <summary>

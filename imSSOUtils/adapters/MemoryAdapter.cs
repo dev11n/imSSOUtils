@@ -37,6 +37,11 @@ namespace imSSOUtils.adapters
         /// Timer responsible for syncing the window position.
         /// </summary>
         public static Timer syncPosition;
+
+        /// <summary>
+        /// Print mod errors
+        /// </summary>
+        private static bool prntErrors;
         #endregion
 
         /// <summary>
@@ -105,6 +110,12 @@ namespace imSSOUtils.adapters
         }
 
         /// <summary>
+        /// Determines whether or not errors for mods should be displayed.
+        /// </summary>
+        /// <param name="print"></param>
+        public static void print_autofix_errors(bool print) => prntErrors = print;
+
+        /// <summary>
         /// Inject code and execute it directly.
         /// </summary>
         public static void direct_call(string newString)
@@ -125,15 +136,19 @@ namespace imSSOUtils.adapters
                     // If its 1, return and exit the loop.
                     if (CVar.read_cvar02_int() is 1) return;
                     // Failed (its 0 / false, a.k.a it failed executing in one way or another), try and fix it
-                    ConsoleWindow.send_input($"failed executing mod, trying to recover ({i + 1}/5)",
-                        "[alpine internal]",
-                        Color.OrangeRed);
+                    if (prntErrors)
+                        ConsoleWindow.send_input($"failed executing mod, trying to recover ({i + 1}/5)",
+                            "[alpine internal]",
+                            Color.OrangeRed);
                     code += $"\n// {head.get_random_string(10)}";
                     head.inject_code(code);
                 }
 
                 if (CVar.read_cvar02_int() is not 1) return;
+                if (!prntErrors) return;
                 ConsoleWindow.send_input("failed executing mod, please check your code and try again (5/5)",
+                    "[alpine internal]", Color.OrangeRed);
+                ConsoleWindow.send_input($"code: {code}",
                     "[alpine internal]", Color.OrangeRed);
             }
             catch (Exception e)
