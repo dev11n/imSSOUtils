@@ -1,6 +1,5 @@
 ﻿using System.Numerics;
 using DriverProgram.adapters;
-using imClickable;
 using ImGuiNET;
 using static ImGuiNET.ImGuiCol;
 
@@ -20,7 +19,7 @@ namespace imSSOUtils.coatings
             gray = ColourAdapter.rgba_to_frgba(31, 30, 31, max_alpha),
             light_gray = ColourAdapter.rgba_to_frgba(70, 70, 70, max_alpha),
             gray_alt = ColourAdapter.rgba_to_frgba(37, 36, 37, max_alpha),
-            black = ColourAdapter.rgba_to_frgba(0, 0, 0, 0);
+            black = Vector4.Zero;
 
         /// <summary>
         /// Max alpha for colours.
@@ -28,6 +27,9 @@ namespace imSSOUtils.coatings
         private const float max_alpha = 255;
         #endregion
 
+        /// <summary>
+        /// "Plug" / Enable the coating.
+        /// </summary>
         public static void plug()
         {
             var style = ImGui.GetStyle();

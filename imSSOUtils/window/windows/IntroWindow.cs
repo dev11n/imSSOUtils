@@ -18,7 +18,7 @@ namespace imSSOUtils.window.windows
         /// <summary>
         /// "Show (Window)" button size.
         /// </summary>
-        private readonly Vector2 showButtonSize = new Vector2(200, 25);
+        private readonly Vector2 showButtonSize = new(200, 25);
         #endregion
 
         /// <summary>
@@ -61,7 +61,8 @@ namespace imSSOUtils.window.windows
             }
 
             if (ImGui.CollapsingHeader("Experiments"))
-                ImGui.Checkbox("Use an experimental version of injecting code - Not recommended", ref BaseRegister.useV2AlpineInject);
+                ImGui.Checkbox("Use an experimental version of injecting code - Not recommended",
+                    ref BaseRegister.useV2AlpineInject);
 
             if (ImGui.CollapsingHeader("Window States"))
             {

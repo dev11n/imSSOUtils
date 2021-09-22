@@ -14,6 +14,7 @@ using imSSOUtils.mod;
 using imSSOUtils.mod.option.dynamic;
 using imSSOUtils.window;
 using Veldrid;
+using static imClickable.ImGuiController;
 
 namespace imSSOUtils
 {
@@ -64,8 +65,8 @@ namespace imSSOUtils
                 await WebAdapter.cache_api();
                 if (!Debugger.IsAttached) await verify_version();
                 CoroutineHandler.Start(SubmitRenderLogic());
-                //if (!Debugger.IsAttached) 
-                    patch();
+                //if (!Debugger.IsAttached)
+                patch();
                 PXOverlay.begin_check();
                 // ! KeyboardHook.start(); -- This has major performance issues and should be rewritten!
                 Overlay.RunInfiniteLoop();
@@ -145,11 +146,10 @@ namespace imSSOUtils
                 for (var i = 0; i < wnd.Length; i++)
                 {
                     var window = wnd[i];
-                    if (window.shouldDisplay)
-                    {
-                        ImGui.PushFont(ImGuiController.comfortaa_SemiBold_Main);
-                        window.draw();
-                    }
+                    if (!window.shouldDisplay) continue;
+                    // ? Since m_032: SemiBold Main is enabled for all windows
+                    ImGui.PushFont(comfortaa_SemiBold_Main);
+                    window.draw();
                 }
             }
         }

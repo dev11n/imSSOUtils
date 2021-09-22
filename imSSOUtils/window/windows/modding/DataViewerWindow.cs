@@ -45,14 +45,12 @@ namespace imSSOUtils.window.windows.modding
             draw_centre();
             ImGui.PushItemWidth(750);
             ImTools.CentreText("Everything you write is automatically converted to Alpine!");
-            if (ImGui.InputText(string.Empty, data, 100, EnterReturnsTrue))
-            {
-                // ! Remove all "00" bytes, aka \u0000
-                var input = Alpine.proc_frm_string(Encoding.UTF8.GetString(data).Replace("\u0000", string.Empty));
-                get_child_objects(input);
-                // Clear the buffer which also clears the input.
-                Array.Clear(data, 0, data.Length);
-            }
+            if (!ImGui.InputText(string.Empty, data, 100, EnterReturnsTrue)) return;
+            // ! Remove all "00" bytes, aka \u0000
+            var input = Alpine.proc_frm_string(Encoding.UTF8.GetString(data).Replace("\u0000", string.Empty));
+            get_child_objects(input);
+            // Clear the buffer which also clears the input.
+            Array.Clear(data, 0, data.Length);
         }
 
         /// <summary>

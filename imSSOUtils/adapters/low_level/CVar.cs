@@ -65,6 +65,26 @@ namespace imSSOUtils.adapters.low_level
         /// Read from CVar
         /// </summary>
         /// <returns></returns>
+        public static uint read_cvar01_uint()
+        {
+            try
+            {
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                Convert.ToUInt32(read_cvar01_string());
+            }
+            catch (Exception)
+            {
+                // bug: we have to ignore this once, then continue as cvar isn't instant.
+                // bug: this should really just be fixed by reading cvar_string twice and ignoring the first result.
+            }
+
+            return hasCached01 ? Convert.ToUInt32(read_cvar01_string()) : 0;
+        }
+
+        /// <summary>
+        /// Read from CVar
+        /// </summary>
+        /// <returns></returns>
         public static int read_cvar02_int()
         {
             try

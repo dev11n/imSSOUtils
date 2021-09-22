@@ -86,6 +86,17 @@ namespace imSSOUtils.adapters
         }
 
         /// <summary>
+        /// Replace all found results with a new value.
+        /// </summary>
+        /// <param name="hex"></param>
+        /// <param name="newValue"></param>
+        public static void replace_all(string hex, string newValue) => new Thread(async () =>
+        {
+            foreach (var result in await head.aob_scan(hex, true))
+                head.get_consult().Memory.write_string($"0x{result:X}", newValue);
+        }).Start();
+
+        /// <summary>
         /// Formats CMods and their dynamic variable values.
         /// </summary>
         private static string dynamic_formatting(string input)

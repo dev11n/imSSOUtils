@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using imSSOUtils.adapters;
-using imSSOUtils.window.windows.modding.low_level;
+using imSSOUtils.registers;
+using imSSOUtils.window.windows;
 
 namespace imSSOUtils.command.commands
 {
@@ -19,7 +21,10 @@ namespace imSSOUtils.command.commands
             if (!MemoryAdapter.is_enabled() || !Debugger.IsAttached) return;
             try
             {
-                LL_PlayerStatsWindow.fetch_updates();
+                //LL_PlayerStatsWindow.fetch_updates();
+                MemoryAdapter.replace_all(LowLevelRegister.start_player_sheet,
+                    " global/TempString.SetDataString(\"OP CS OPEN SHEET\");                  ");
+                ConsoleWindow.send_input("done replacing", "[developer]", Color.White);
             }
             catch (Exception e)
             {
