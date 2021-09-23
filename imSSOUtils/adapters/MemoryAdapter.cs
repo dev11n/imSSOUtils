@@ -133,7 +133,7 @@ namespace imSSOUtils.adapters
         /// <summary>
         /// Inject code and execute it directly.
         /// </summary>
-        public static void direct_call(string newString)
+        public static void direct_call(string newString, bool isDirty = true)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace imSSOUtils.adapters
                            "\nglobal/ReportWindow.SetScaleX(0.0);" + (CVar.hasCachedAll
                                ? "\nglobal/CSIInspectView/FailedMessageData.SetDataString(\"1\");"
                                : string.Empty);
-                head.inject_code(code);
+                head.inject_code(code, isDirty);
                 if (!CVar.hasCachedAll) return;
                 // Check 5 times if executing the mod failed (a.k.a the entire code failed to execute)
                 for (var i = 0; i < 5; i++)

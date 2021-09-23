@@ -31,9 +31,17 @@ namespace imSSOUtils.adapters.low_level
         /// Read from CVar
         /// </summary>
         /// <returns></returns>
-        public static string read_cvar01_string() => hasCached01
-            ? head.get_consult().Memory.read_string(directAddress01, 128)
-            : "NOT CACHED!";
+        public static string read_cvar01_string()
+        {
+            try
+            {
+                return hasCached01 ? head.get_consult().Memory.read_string(directAddress01, 128) : Empty;
+            }
+            catch (Exception)
+            {
+                return Empty;
+            }
+        }
 
         /// <summary>
         /// Read from CVar
@@ -186,14 +194,16 @@ namespace imSSOUtils.adapters.low_level
             for (var i = 0; i < 2; i++)
                 // ! We have to set a GAS (GlobalAccessShortcut) so it reads the object of "TempString" once, then it gets cached properly in memory
                 direct_call(
-                    $"Game->QuestCollectCompleteWindow->Script->sText::GlobalAccessShortcut(\"TempString\");\nGame->TempString::SetDataString(\"{direct_raw}\");");
+                    $"Game->QuestCollectCompleteWindow->Script->sText::GlobalAccessShortcut(\"TempString\");\nGame->TempString::SetDataString(\"{direct_raw}\");",
+                    false);
             await Task.Delay(300);
             await cache_cvar01();
             await Task.Delay(50);
             ConsoleWindow.send_input("caching cvar_02, please do not move", "[cvar]", Color.White);
             for (var i = 0; i < 2; i++)
                 direct_call(
-                    $"Game->CSIInspectView->FailedMessageData::GlobalAccessShortcut(\"TempString2\");\nGame->TempString2::SetDataString(\"{direct02_raw}\");");
+                    $"Game->CSIInspectView->FailedMessageData::GlobalAccessShortcut(\"TempString2\");\nGame->TempString2::SetDataString(\"{direct02_raw}\");",
+                    false);
             await Task.Delay(300);
             await cache_cvar02();
             ConsoleWindow.send_input("finished cvar caching", "[cvar]", Color.White);

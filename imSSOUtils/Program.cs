@@ -65,7 +65,8 @@ namespace imSSOUtils
                 await WebAdapter.cache_api();
                 if (!Debugger.IsAttached) await verify_version();
                 CoroutineHandler.Start(SubmitRenderLogic());
-                if (!Debugger.IsAttached) patch();
+                //if (!Debugger.IsAttached)
+                    patch();
                 PXOverlay.begin_check();
                 // ! KeyboardHook.start(); -- This has major performance issues and should be rewritten!
                 Overlay.RunInfiniteLoop();
