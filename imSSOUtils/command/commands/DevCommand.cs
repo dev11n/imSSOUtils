@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading;
 using imSSOUtils.adapters;
-using imSSOUtils.registers;
+using imSSOUtils.adapters.low_level;
 using imSSOUtils.window.windows;
 
 namespace imSSOUtils.command.commands
@@ -21,10 +22,12 @@ namespace imSSOUtils.command.commands
             if (!MemoryAdapter.is_enabled() || !Debugger.IsAttached) return;
             try
             {
-                //LL_PlayerStatsWindow.fetch_updates();
-                MemoryAdapter.replace_all(LowLevelRegister.start_player_sheet,
-                    " global/TempString.SetDataString(\"OP CS OPEN SHEET\");                  ");
-                ConsoleWindow.send_input("done replacing", "[developer]", Color.White);
+                new Thread(() =>
+                {
+                    ConsoleWindow.send_input($"last value: {CVar.read_cvar02_string()}", "[developer]", Color.White);
+                    CVar.write_cvar02("HEYYY" + new Random().Next(0, 4214));
+                    ConsoleWindow.send_input($"current value: {CVar.read_cvar02_string()}", "[developer]", Color.White);
+                }).Start();
             }
             catch (Exception e)
             {

@@ -4,7 +4,6 @@ using imClickable;
 using ImGuiNET;
 using imSSOUtils.adapters;
 using imSSOUtils.coatings;
-using imSSOUtils.registers;
 using static imSSOUtils.Program;
 
 namespace imSSOUtils.window.windows
@@ -36,6 +35,7 @@ namespace imSSOUtils.window.windows
             }
 
             HexaCoating.plug();
+            //ModernCoating.plug();
             Overlay.Close = !isRunning;
             ImTools.CentreText("Welcome to SSOUtils!");
             ImTools.CentreText("To view the latest changes, write \"changelog\" in Console");
@@ -60,10 +60,6 @@ namespace imSSOUtils.window.windows
                 ImGui.Text("erfg12 - Memory.dll");
             }
 
-            if (ImGui.CollapsingHeader("Experiments"))
-                ImGui.Checkbox("Use an experimental version of injecting code - Not recommended",
-                    ref BaseRegister.useV2AlpineInject);
-
             if (ImGui.CollapsingHeader("Window States"))
             {
                 if (ImGui.Button("Toggle Extra Information", showButtonSize)) showExtraInfo = !showExtraInfo;
@@ -76,6 +72,7 @@ namespace imSSOUtils.window.windows
                 if (ImGui.Button("Show Alpine Editor", showButtonSize))
                     get_by_name("Alpine Editor").shouldDisplay = true;
                 if (ImGui.Button("Show Custom Mods", showButtonSize)) get_by_name("Custom Mods").shouldDisplay = true;
+                if (ImGui.Button("Show Custom Mods", showButtonSize)) get_by_name("Data Viewer").shouldDisplay = true;
             }
 
             if (MemoryAdapter.is_enabled()) ImGui.Checkbox("Show extra information", ref showExtraInfo);

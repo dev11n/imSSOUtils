@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
-using DriverProgram.adapters;
 using ImGuiNET;
+using imSSOUtils.adapters;
 using static ImGuiNET.ImGuiCol;
 
 namespace imSSOUtils.coatings

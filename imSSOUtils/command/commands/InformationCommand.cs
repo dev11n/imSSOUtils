@@ -13,7 +13,7 @@ namespace imSSOUtils.command.commands
         /// <summary>
         /// The current version.
         /// </summary>
-        public const string version = "master_release_031";
+        public const string version = "master_release_032";
         #endregion
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace imSSOUtils.command.commands
             ConsoleWindow.send_input("ImGui.Separator", string.Empty, color);
             ConsoleWindow.send_input("ImGui.Bullet .NET 5.0", string.Empty, color);
             ConsoleWindow.send_input("ImGui.Bullet C# 9.0", string.Empty, color);
-            ConsoleWindow.send_input("ImGui.Bullet WIAP", string.Empty, color);
+            ConsoleWindow.send_input("ImGui.Bullet OTFE 1.1", string.Empty, color);
             if (!Debugger.IsAttached) return;
             ConsoleWindow.send_input("a debugger is attached", "[debugger]", Color.OrangeRed);
         }

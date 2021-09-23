@@ -1,23 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
+using imSSOUtils.window.windows;
 using static System.String;
+using static imSSOUtils.adapters.MemoryAdapter;
 using static imSSOUtils.registers.InternalRegister;
 
 namespace imSSOUtils.adapters.low_level
 {
+    /// <summary>
+    /// "Custom Variable" - Modify a variable in SSO in order to fetch in-game data externally.
+    /// </summary>
     internal readonly struct CVar
     {
         #region Variables
         /// <summary>
-        /// Addresses for CVars.
-        /// </summary>
-        private static readonly List<string> directAddresses01 = new(), directAddresses02 = new();
-
-        /// <summary>
         /// Addresses for accessing a variables data.
         /// </summary>
-        private static string directAddress01 = Empty, directAddress02 = Empty;
+        public static string directAddress01 = Empty, directAddress02 = Empty;
 
         /// <summary>
         /// Determines whether we have cached a specific CVar or not.
@@ -30,7 +32,7 @@ namespace imSSOUtils.adapters.low_level
         /// </summary>
         /// <returns></returns>
         public static string read_cvar01_string() => hasCached01
-            ? MemoryAdapter.head.get_consult().Memory.read_string(directAddress01, 128)
+            ? head.get_consult().Memory.read_string(directAddress01, 128)
             : "NOT CACHED!";
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace imSSOUtils.adapters.low_level
         /// </summary>
         /// <returns></returns>
         public static string read_cvar02_string() => hasCached02
-            ? MemoryAdapter.head.get_consult().Memory.read_string(directAddress02, 128)
+            ? head.get_consult().Memory.read_string(directAddress02, 128)
             : "NOT CACHED!";
 
         /// <summary>
@@ -106,17 +108,22 @@ namespace imSSOUtils.adapters.low_level
         /// </summary>
         /// <param name="data">Data to be written</param>
         /// <param name="type">The type to write (Int, String, etc) | Case-sensitive</param>
-        public static void write_cvar01(string data, string type) =>
-            MemoryAdapter.direct_call($"Game->TempString::SetData{type}({data});");
+        /// <param name="pauseThread">For how long the thread should be paused after writing. Set to 0 for no delay.</param>
+        public static void write_cvar01(string data, string type, int pauseThread = 10)
+        {
+            direct_call($"Game->TempString::SetData{type}({data});");
+            // If C# 9.0+ is active on all cheats, switch the if-check out to "if (pauseThread is not 0)" as it's easier to read.
+            if (pauseThread != 0) Thread.Sleep(pauseThread);
+        }
 
         /// <summary>
         /// Write to CVar
         /// <para>This uses direct writing and can't easily retrieve in-game data like CVar_01.</para>
-        /// <para>Only use this for checking whether a mod has been executed or not.</para>
+        /// <para>Only use this for writing whether a mod has been executed or not (0/1).</para>
         /// </summary>
         /// <param name="data">Data to be written</param>
         public static void write_cvar02(string data) =>
-            MemoryAdapter.head.get_consult().Memory.write_string(directAddress02, data);
+            head.get_consult().Memory.write_string(directAddress02, data);
 
         /// <summary>
         /// Cache CVar
@@ -124,18 +131,25 @@ namespace imSSOUtils.adapters.low_level
         private static async Task cache_cvar01()
         {
             if (hasCached01) return;
-            // ? Do this 4 times because SSO has brain issues.
             for (var i = 0; i < 4; i++)
             {
-                directAddresses01.Clear();
-                foreach (var address in await MemoryAdapter.head.aob_scan(direct, true))
-                    directAddresses01.Add($"0x{address:X}");
-                foreach (var address in directAddresses01)
-                    if (MemoryAdapter.head.get_consult().Memory.read_string(address).StartsWith(direct_raw))
-                        directAddress01 = address;
+                foreach (var address in await head.aob_scan(direct, true))
+                {
+                    var fixedAddress = $"0x{address:X}";
+                    if (head.get_consult().Memory.read_string(fixedAddress, 128) == direct_raw)
+                    {
+                        directAddress01 = fixedAddress;
+                        hasCached01 = true;
+                        ConsoleWindow.send_input("cached cvar_01", "[cvar]", Color.White);
+                        return;
+                    }
+
+                    // ! Not found, close the program
+                    Program.write_crash(new ExternalException("Failed finding CVar_01!"));
+                }
             }
 
-            hasCached01 = directAddress01.Length > 2;
+            hasCached01 = false;
         }
 
         /// <summary>
@@ -144,18 +158,23 @@ namespace imSSOUtils.adapters.low_level
         private static async Task cache_cvar02()
         {
             if (hasCached02) return;
-            // ? Do this 4 times because SSO has brain issues.
             for (var i = 0; i < 4; i++)
-            {
-                directAddresses02.Clear();
-                foreach (var address in await MemoryAdapter.head.aob_scan(direct02, true))
-                    directAddresses02.Add($"0x{address:X}");
-                foreach (var address in directAddresses02)
-                    if (MemoryAdapter.head.get_consult().Memory.read_string(address).StartsWith(direct02_raw))
-                        directAddress02 = address;
-            }
+                foreach (var address in await head.aob_scan(direct02, true))
+                {
+                    var fixedAddress = $"0x{address:X}";
+                    if (head.get_consult().Memory.read_string(fixedAddress) == direct02_raw)
+                    {
+                        directAddress02 = fixedAddress;
+                        hasCached02 = true;
+                        ConsoleWindow.send_input("cached cvar_02", "[cvar]", Color.White);
+                        return;
+                    }
 
-            hasCached02 = directAddress02.Length > 2;
+                    // ! Not found, close the program
+                    Program.write_crash(new ExternalException("Failed finding CVar_02!"));
+                }
+
+            hasCached02 = false;
         }
 
         /// <summary>
@@ -163,16 +182,25 @@ namespace imSSOUtils.adapters.low_level
         /// </summary>
         public static async Task setup_cvar()
         {
-            PXInternal.show_white_message("Caching CVar_01");
-            MemoryAdapter.direct_call(
-                $"Game->QuestCollectCompleteWindow->Script->sText::GlobalAccessShortcut(\"TempString\");\nGame->TempString::SetDataString(\"{direct_raw}\");");
+            ConsoleWindow.send_input("caching cvar_01, please do not move", "[cvar]", Color.White);
+            for (var i = 0; i < 2; i++)
+                // ! We have to set a GAS (GlobalAccessShortcut) so it reads the object of "TempString" once, then it gets cached properly in memory
+                direct_call(
+                    $"Game->QuestCollectCompleteWindow->Script->sText::GlobalAccessShortcut(\"TempString\");\nGame->TempString::SetDataString(\"{direct_raw}\");");
             await Task.Delay(300);
             await cache_cvar01();
-            PXInternal.show_white_message("Caching CVar_02");
-            MemoryAdapter.direct_call($"Game->CSIInspectView->FailedMessageData::SetDataString(\"{direct02_raw}\");");
+            await Task.Delay(50);
+            ConsoleWindow.send_input("caching cvar_02, please do not move", "[cvar]", Color.White);
+            for (var i = 0; i < 2; i++)
+                direct_call(
+                    $"Game->CSIInspectView->FailedMessageData::GlobalAccessShortcut(\"TempString2\");\nGame->TempString2::SetDataString(\"{direct02_raw}\");");
             await Task.Delay(300);
             await cache_cvar02();
-            hasCachedAll = true;
+            ConsoleWindow.send_input("finished cvar caching", "[cvar]", Color.White);
+            hasCachedAll = hasCached01 && hasCached02;
+            if (!hasCachedAll)
+                Program.write_crash(
+                    new ExternalException($"Invalid CVar states! p_01: {hasCached01} | p_02: {hasCached02}"));
         }
     }
 }

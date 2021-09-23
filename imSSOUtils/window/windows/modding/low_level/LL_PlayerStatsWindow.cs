@@ -1,10 +1,13 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using System.Threading;
 using ImGuiNET;
 using imSSOUtils.adapters;
 using imSSOUtils.adapters.low_level;
+using imSSOUtils.cache;
 using static imClickable.ImGuiController;
 using static ImGuiNET.ImGuiWindowFlags;
+using static imSSOUtils.cache.Player;
 
 namespace imSSOUtils.window.windows.modding.low_level
 {
@@ -15,24 +18,14 @@ namespace imSSOUtils.window.windows.modding.low_level
     {
         #region Variables
         /// <summary>
-        /// Player stats.
-        /// </summary>
-        private static uint riding, caring, command, jumping;
-
-        /// <summary>
         /// Sizes.
         /// </summary>
         private readonly Vector2 size = new(486, 195);
 
         /// <summary>
-        /// Player strings.
-        /// </summary>
-        private static string playerName = "PlayerName";
-
-        /// <summary>
         /// Integers.
         /// </summary>
-        private static int playerLevel, js, sc;
+        private static int retry;
         #endregion
 
         /// <summary>
@@ -74,8 +67,8 @@ namespace imSSOUtils.window.windows.modding.low_level
         /// </summary>
         private void write_currencies()
         {
-            write_font($"Star Coins: {sc}", true, comfortaa_SemiBold_Main);
-            write_font($"Jorvik Shillings: {js}", true, comfortaa_SemiBold_Main);
+            write_font($"Star Coins: {starCoins}", true, comfortaa_SemiBold_Main);
+            write_font($"Jorvik Shillings: {jorvikShillings}", true, comfortaa_SemiBold_Main);
         }
 
         /// <summary>
@@ -83,8 +76,8 @@ namespace imSSOUtils.window.windows.modding.low_level
         /// </summary>
         private void write_top()
         {
-            write_font(playerName, true, comfortaa_SemiBold_Large);
-            write_font($"Level {playerLevel.ToString()}", true, comfortaa_SemiBold_Main);
+            write_font(username, true, comfortaa_SemiBold_Large);
+            write_font($"Level {level.ToString()}", true, comfortaa_SemiBold_Main);
         }
 
         /// <summary>
@@ -94,7 +87,7 @@ namespace imSSOUtils.window.windows.modding.low_level
         {
             write_font($"Riding: {riding.ToString()}", true, comfortaa_SemiBold_Main);
             write_font($"Caring: {caring.ToString()}", true, comfortaa_SemiBold_Main);
-            write_font($"Command: {command.ToString()}", true, comfortaa_SemiBold_Main);
+            write_font($"Command: {Player.command}", true, comfortaa_SemiBold_Main);
             write_font($"Jumping: {jumping.ToString()}", true, comfortaa_SemiBold_Main);
         }
 
@@ -103,9 +96,25 @@ namespace imSSOUtils.window.windows.modding.low_level
         /// </summary>
         public void open_window()
         {
-            MemoryAdapter.direct_call("Game->CharacterSheet::Stop();");
+            MemoryAdapter.direct_call(
+                "Game->CharacterSheet::GlobalAccessShortcut(\"CSheet\");\n" +
+                "Game->CSheet->TabView::GlobalAccessShortcut(\"CTab\");\n" +
+                "Game->CTab->Me->Info::SetScaleX(0);\n" +
+                "Game->CTab->Me->line::SetScaleX(0);\n" +
+                "Game->CTab->Me->Background::SetScaleX(0);\n" +
+                "Game->CTab->Me->Currency::SetScaleX(0);\n" +
+                "Game->CTab->Me->Skills::SetScaleX(0);\n" +
+                "Game->CTab::SetViewBorderColor(0, 0, 0, 0);\n" +
+                "Game->CTab::SetViewTextColor(0, 0, 0, 0);\n" +
+                "Game->CTab::SetScale(1, 1, 1);\n" +
+                "Game->CTab->Me::SetPosition(-178, -115, 1);\n" +
+                "Game->CTab->Me::SetScale(1, 1, 1);\n" +
+                "Game->CSheet::SetScale(1, 1, 1);\n" +
+                "Game->CSheet::SetViewBorderColor(1, 1, 1, 1);\n" +
+                "Game->CSheet::SetViewHeight(335);\n" +
+                "Game->CSheet::SetViewWidth(190);");
+            Thread.Sleep(550);
             fetch_updates();
-            shouldDisplay = true;
         }
 
         /// <summary>
@@ -122,22 +131,29 @@ namespace imSSOUtils.window.windows.modding.low_level
         /// </summary>
         private void fetch_updates() => new Thread(() =>
         {
-            CVar.write_cvar01("CurrentPlayerName::GetDataString()", "String");
-            playerName = CVar.read_cvar01_string();
-            CVar.write_cvar01("CurrentPlayer::GetPlayerTPNetLevel()", "Int");
-            playerLevel = CVar.read_cvar01_int();
-            CVar.write_cvar01("CurrentPlayer::GetPlayerTPNetRidingSkillTotalValue()", "UInt");
-            riding = CVar.read_cvar01_uint();
-            CVar.write_cvar01("CurrentPlayer::GetPlayerTPNetCaringSkillTotalValue()", "UInt");
-            caring = CVar.read_cvar01_uint();
-            CVar.write_cvar01("CurrentPlayer::GetPlayerTPNetCommandSkillTotalValue()", "UInt");
-            command = CVar.read_cvar01_uint();
-            CVar.write_cvar01("CurrentPlayer::GetPlayerTPNetJumpingSkillTotalValue()", "UInt");
-            jumping = CVar.read_cvar01_uint();
-            CVar.write_cvar01("CurrentPlayerStarMoney::GetDataInt()", "Int");
-            sc = CVar.read_cvar01_int();
-            CVar.write_cvar01("CurrentPlayerMoney::GetDataInt()", "Int");
-            js = CVar.read_cvar01_int();
+            if (shouldDisplay) return;
+            retry = 0;
+            fetch_e();
+            shouldDisplay = true;
         }).Start();
+
+        /// <summary>
+        /// Fetch everything.
+        /// </summary>
+        private void fetch_e()
+        {
+            try
+            {
+                update_skills();
+                update_currencies();
+                update_level();
+            }
+            catch (Exception)
+            {
+                retry++;
+                if (retry < 5) fetch_e();
+                else Environment.Exit(-1);
+            }
+        }
     }
 }

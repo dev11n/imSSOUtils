@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace DriverProgram.adapters
+namespace imSSOUtils.adapters
 {
     /// <summary>
     /// Colour utilities.

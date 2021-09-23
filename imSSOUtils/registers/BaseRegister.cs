@@ -8,7 +8,7 @@
         /// <summary>
         /// Constant strings which represents various common names related to processes.
         /// </summary>
-        public const string sentry_rt_name = "crashpad_handler", runtime = "SSOClient", runtime_title = "Star Stable";
+        public const string runtime = "SSOClient", runtime_title = "Star Stable";
 
         /*
          * Legacy Hex:
@@ -16,14 +16,5 @@
          * mp_highlight = "67 6C 6F 62 61 6C 2F 4D 61 70 57 69 6E 64 6F 77 2F 48 69 67 68 6C 69 67 68 74 4D 6F 64 65 2E 53 74 61 72 74 28 29 3B"
          * loginMenu_legacy = "67 6C 6F 62 61 6C 2F 4C 6F 67 69 6E 4D 65 6E 75 2E 53 74 61 72 74 28 29 3B"
          */
-
-        public static bool useV2AlpineInject = false;
-
-        /// <summary>
-        /// HEX strings.
-        /// </summary>
-        // ! Readonly instead of const so obfuscators obfuscate it
-        public static readonly string mp =
-            "67 6C 6F 62 61 6C 2F 4D 61 70 57 69 6E 64 6F 77 2E 53 74 61 72 74 28 29 3B 0D 0A 7D 0D 0A 0D 0A 2F 2F 20 4D";
     }
 }

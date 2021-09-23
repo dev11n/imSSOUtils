@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using Coroutine;
 using imClickable;
 using imSSOUtils.adapters;
 using imSSOUtils.adapters.low_level;
-using imSSOUtils.window.windows;
+using imSSOUtils.mod.mods.Visual;
 using imSSOUtils.window.windows.modding.low_level;
 
 namespace imSSOUtils.hooks.low_level
@@ -18,7 +17,7 @@ namespace imSSOUtils.hooks.low_level
         /// <summary>
         /// The delay for unlocking key checks.
         /// </summary>
-        private static readonly Wait resetDelay = new(.2f);
+        private static readonly Wait resetDelay = new(5);
 
         /// <summary>
         /// Determines whether key checks have been locked or not.
@@ -39,9 +38,8 @@ namespace imSSOUtils.hooks.low_level
             {
                 yield return wait;
                 if (!NativeMethods.IsKeyPressed(0x43) || locked || !PXOverlay.inSSO ||
-                    playerWindow.shouldDisplay) continue;
+                    playerWindow.shouldDisplay || !UI_Enhancements.isRunning) continue;
                 playerWindow.open_window();
-                ConsoleWindow.send_input("OPEN WINDOW", "[developer]", Color.White);
                 locked = true;
                 CoroutineHandler.InvokeLater(resetDelay, () => locked = false);
             }

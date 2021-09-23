@@ -48,12 +48,6 @@ namespace imSSOUtils.window.windows
         private void draw_sky_section()
         {
             if (!ImGui.CollapsingHeader("Sky Modifier")) return;
-            ImTools.CentreText("INSTRUCTIONS");
-            ImGui.Separator();
-            ImTools.CentreText("Load a preset");
-            ImTools.CentreText("Modify a random value via the sliders");
-            ImTools.CentreText("Start the mod");
-            ImGui.Separator();
             ImGui.PushItemWidth(253 + 20);
             ImGui.InputText(string.Empty, data, 100);
             ImGui.PopItemWidth();

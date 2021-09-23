@@ -40,7 +40,7 @@ namespace imSSOUtils
         /// <summary>
         /// Show the clickable UI?
         /// </summary>
-        public static bool showUI = true;
+        private static bool showUI = true;
 
         /// <summary>
         /// Startup logic
@@ -65,8 +65,7 @@ namespace imSSOUtils
                 await WebAdapter.cache_api();
                 if (!Debugger.IsAttached) await verify_version();
                 CoroutineHandler.Start(SubmitRenderLogic());
-                //if (!Debugger.IsAttached)
-                patch();
+                if (!Debugger.IsAttached) patch();
                 PXOverlay.begin_check();
                 // ! KeyboardHook.start(); -- This has major performance issues and should be rewritten!
                 Overlay.RunInfiniteLoop();

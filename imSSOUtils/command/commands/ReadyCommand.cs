@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Threading;
+using CNLibrary;
 using imSSOUtils.adapters;
 using imSSOUtils.window.windows;
 
@@ -17,7 +18,9 @@ namespace imSSOUtils.command.commands
         void ICommand.push(string[] args)
         {
             if (MemoryAdapter.is_enabled()) return;
-            ConsoleWindow.send_input("starting (reflections)", "[alpine internal]", Color.White);
+            Utils.set_64(true);
+            ConsoleWindow.send_input($"starting (reflections) | x64 >> {Utils.is_64()}", "[alpine internal]",
+                Color.White);
             new Thread(async () => await MemoryAdapter.patch_memory()).Start();
         }
     }

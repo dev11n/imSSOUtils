@@ -8,9 +8,10 @@
     ".NETCoreApp,Version=v5.0": {
       "imSSOUtils/1.0.0": {
         "dependencies": {
-          "Consult": "1.0.0",
           "Newtonsoft.Json": "13.0.1",
           "imClickable": "1.0.0",
+          "Consult": "1.0.0.0",
+          "OTFE": "1.0.0.0",
           "System.Security.Principal.Windows": "5.0.0.0"
         },
         "runtime": {
@@ -981,11 +982,6 @@
           }
         }
       },
-      "Consult/1.0.0": {
-        "runtime": {
-          "Consult.dll": {}
-        }
-      },
       "imClickable/1.0.0": {
         "dependencies": {
           "Coroutine": "2.1.1",
@@ -997,6 +993,22 @@
         },
         "runtime": {
           "imClickable.dll": {}
+        }
+      },
+      "Consult/1.0.0.0": {
+        "runtime": {
+          "Consult.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "OTFE/1.0.0.0": {
+        "runtime": {
+          "OTFE.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "System.Security.Principal.Windows/5.0.0.0": {
@@ -1701,13 +1713,18 @@
       "path": "vortice.runtime.com/1.8.54",
       "hashPath": "vortice.runtime.com.1.8.54.nupkg.sha512"
     },
-    "Consult/1.0.0": {
+    "imClickable/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "imClickable/1.0.0": {
-      "type": "project",
+    "Consult/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OTFE/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },

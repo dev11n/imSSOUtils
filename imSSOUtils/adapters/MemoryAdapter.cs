@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using imSSOUtils.adapters.low_level;
+using imSSOUtils.cache;
+using imSSOUtils.hooks.low_level;
 using imSSOUtils.mod.option.dynamic;
 using imSSOUtils.mod.option.@static;
 using imSSOUtils.window.windows;
@@ -82,6 +84,8 @@ namespace imSSOUtils.adapters
             sync_position(ssoClient);
             // ! Cache cvar
             await CVar.setup_cvar();
+            Player.initialize();
+            EventHook.plug();
             show_white_message("SSOUtils loaded successfully. Have fun and keep the experience fair for everyone!");
         }
 

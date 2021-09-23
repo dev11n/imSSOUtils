@@ -281,7 +281,7 @@ namespace CNLibrary
             if (mainModule is null) return UIntPtr.Zero;
             var nameCopy = code;
             const char comma = ',', plus = '+';
-            const short size = 8;
+            const short size = 16;
             // If nameCopy is just empty, return just a 0 in UIntPtr
             if (nameCopy is "") return UIntPtr.Zero;
 

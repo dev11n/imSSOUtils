@@ -15,7 +15,12 @@ namespace imSSOUtils.window.windows
         /// <summary>
         /// The window position.
         /// </summary>
-        private readonly Vector2 pos = new(0, 200);
+        private readonly Vector2 pos = new(0, 150);
+
+        /// <summary>
+        /// The log text.
+        /// </summary>
+        private static string log_text = string.Empty;
         #endregion
 
         /// <summary>
@@ -29,16 +34,23 @@ namespace imSSOUtils.window.windows
             ImGui.Begin(identifier, NoInputs | NoCollapse | NoTitleBar | AlwaysAutoResize | NoResize);
             ImGui.Text(identifier);
             var horsePos = PXInternal.get_horse_position();
+            ImGui.Text($"Current Horse Position: {horsePos.X}, {horsePos.Y}, {horsePos.Z}");
             ImGui.Text(
-                $"Current Horse Position: {horsePos.X}, {horsePos.Y}, {horsePos.Z}");
-            if (CVar.hasCached01)
-                ImGui.Text(CVar.read_cvar01_string());
-            if (CVar.hasCached02)
-                ImGui.Text(CVar.read_cvar02_string());
+                $"Modding state: {(MemoryAdapter.is_enabled() && CVar.hasCachedAll ? "Enabled" : "Corrupted")} (alpine_v2_exp)");
+            if (log_text.Length >= 5)
+            {
+                ImGui.NewLine();
+                ImGui.Text(log_text);
+            }
 
-            ImGui.Text($"Modding state: {(MemoryAdapter.is_enabled() ? "Enabled" : "Corrupted")} (alpine_v2_exp)");
             ImGui.End();
         }
+
+        /// <summary>
+        /// Write text to the side of the screen.
+        /// </summary>
+        /// <param name="text"></param>
+        public static void log(string text) => log_text += $"{text}\n";
 
         protected internal override void initialize() => identifier = "SSOUtils - Information";
     }

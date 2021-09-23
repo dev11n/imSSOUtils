@@ -1,8 +1,5 @@
 ﻿using System.Threading;
-using Coroutine;
 using imSSOUtils.adapters;
-using imSSOUtils.hooks.low_level;
-using imSSOUtils.registers;
 
 namespace imSSOUtils.mod.mods.Visual
 {
@@ -30,14 +27,11 @@ namespace imSSOUtils.mod.mods.Visual
             }
             else
             {
-                CoroutineHandler.Start(KeyHook.plug());
-                MemoryAdapter.replace_all(LowLevelRegister.start_player_sheet,
-                    " global/TempString.SetDataString(\"OP CS OPEN SHEET\");                  ");
-                modTimer = new Timer(_ =>
-                {
-                    isRunning = true;
-                    PXInternal.draw_current_location();
-                }, null, 0, 2000);
+                isRunning = true;
+                //CoroutineHandler.Start(KeyHook.plug());
+                //MemoryAdapter.replace_all(LowLevelRegister.start_player_sheet,
+                //    " global/TempString.SetDataString(\"OP CS OPEN SHEET\");                  ");
+                modTimer = new Timer(_ => PXInternal.draw_current_location(), null, 0, 2000);
             }
         }
 

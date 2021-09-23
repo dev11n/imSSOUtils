@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using imSSOUtils.adapters;
 
 namespace imSSOUtils.mod.mods.Visual
 {
@@ -29,8 +28,8 @@ namespace imSSOUtils.mod.mods.Visual
                 modTimer = new Timer(_ =>
                 {
                     isRunning = true;
-                    alpine_execute(PXShort.p_if("Game->GameUI::GetActive() == 1",
-                        "SetHorseAppearance(Game->SelectedHorseForSale::GetHorseDataID());"));
+                    alpine_execute("if (Game->GameUI::GetActive() is 1) >>\n" +
+                                   "SetHorseAppearance(Game->SelectedHorseForSale::GetHorseDataID());\n<<");
                 }, null, 0, 1500);
         }
 

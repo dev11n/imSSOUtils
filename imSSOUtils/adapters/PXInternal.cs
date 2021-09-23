@@ -171,12 +171,12 @@ namespace imSSOUtils.adapters
         /// <returns></returns>
         public static void draw_current_location()
         {
-            var code = PXShort.p_if(
-                           "Game->GlobalTempStringData::GetDataString() != Game->LocationNameMiniMap::GetViewText()",
-                           "Game->InfoTextWindow3::SetViewText(Game->LocationNameMiniMap::GetViewText());\n" +
-                           "Game->InfoTextWindow3::SetViewTextColor(1, 1, 1, 1);\n" +
-                           "Game->InfoTextWindow3::Start();") +
-                       "Game->GlobalTempStringData::SetDataString(Game->LocationNameMiniMap::GetViewText());";
+            const string code =
+                "if (Game->GlobalTempStringData::GetDataString() is not Game->LocationNameMiniMap::GetViewText()) >>\n" +
+                "Game->InfoTextWindow3::SetViewText(Game->LocationNameMiniMap::GetViewText());\n" +
+                "Game->InfoTextWindow3::SetViewTextColor(1, 1, 1, 1);\n" +
+                "Game->InfoTextWindow3::Start();\n<<\n" +
+                "Game->GlobalTempStringData::SetDataString(Game->LocationNameMiniMap::GetViewText());";
             MemoryAdapter.direct_call(code);
         }
     }
