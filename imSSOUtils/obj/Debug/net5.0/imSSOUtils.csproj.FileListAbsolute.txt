@@ -54,4 +54,5 @@ C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\c
 C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\Comfortaa-Regular.ttf
 C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\Comfortaa-SemiBold.ttf
 C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\OFL.txt
-C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\comfortaa\README.txt
+C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\inconsolata\Inconsolata-Regular.ttf
+C:\Users\qqt\RiderProjects\imSSOUtils\imSSOUtils\bin\Debug\net5.0\assets\fonts\inconsolata\OFL.txt

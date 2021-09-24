@@ -21,6 +21,11 @@ namespace imSSOUtils.window.windows.modding
         /// The scale of this window.
         /// </summary>
         private readonly Vector2 scale = new(305, 220);
+
+        /// <summary>
+        /// Determines whether we have done the initial scaling or not.
+        /// </summary>
+        private bool hasScaledOnce;
         #endregion
 
         /// <summary>
@@ -28,13 +33,18 @@ namespace imSSOUtils.window.windows.modding
         /// </summary>
         protected internal override void draw()
         {
-            if (!ImGui.Begin(identifier, ref shouldDisplay, ImGuiWindowFlags.NoResize))
+            if (!ImGui.Begin(identifier, ref shouldDisplay))
             {
                 ImGui.End();
                 return;
             }
 
-            ImGui.SetWindowSize(scale);
+            if (!hasScaledOnce)
+            {
+                ImGui.SetWindowSize(scale);
+                hasScaledOnce = true;
+            }
+
             var collection = Alpine.get_cmods_categories().ToList();
             if (collection.Count is not 0) ImGui.BeginTabBar("Categories");
             for (var i = 0; i < collection.Count; i++)
@@ -46,8 +56,7 @@ namespace imSSOUtils.window.windows.modding
                 {
                     var mod = mods[j];
                     if (ImGui.Button(mod.name.Replace('_', ' '),
-                        new Vector2(CModOption.has_options(mod) ? buttonOptions : buttonSingle,
-                            ImGui.GetItemRectSize().Y)))
+                        new Vector2(ImGui.GetWindowWidth() - (CModOption.has_options(mod) ? 55 : 16), 25)))
                         MemoryAdapter.direct_call(mod.code);
                     CModOption.list_options(mod);
                 }

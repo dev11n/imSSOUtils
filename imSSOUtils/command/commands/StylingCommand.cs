@@ -23,7 +23,9 @@ namespace imSSOUtils.command.commands
             {
                 ConsoleWindow.send_input("not enough arguments, adding controls:", "[dynamic styling]",
                     Color.OrangeRed);
-                ConsoleWindow.send_input("Buttons: styling add [mod_name] button [name] [code]", "[dynamic styling]",
+                ConsoleWindow.send_input(
+                    "Buttons: styling add [mod_name] button [name] [code (grabbed from Alpine ED.)]",
+                    "[dynamic styling]",
                     Color.White);
                 ConsoleWindow.send_input("Input Text: styling add [mod_name] inputText [control_name]",
                     "[dynamic styling]",
@@ -72,7 +74,7 @@ namespace imSSOUtils.command.commands
             switch (args[3])
             {
                 case "button":
-                    process_value(mod, buttonStart, args[4], args[5]);
+                    process_value(mod, buttonStart, args[4], AlpineEDWindow.content);
                     break;
                 case "inputText":
                     process_value(mod, inputTextStart, args[4], string.Empty);

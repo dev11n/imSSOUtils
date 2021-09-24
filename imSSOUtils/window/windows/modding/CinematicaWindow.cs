@@ -55,9 +55,13 @@ namespace imSSOUtils.window.windows.modding
                 ImGui.SameLine();
                 if (ImGui.Button("Enhancements")) on_enhance_click();
                 ImTools.ApplyTooltip("Disables your horses skin and enables NoFall.");
+                ImGui.SameLine();
+                if (ImGui.Button("Smooth")) on_enhance_click();
+                ImTools.ApplyTooltip(
+                    "Pauses your horses animations in order to try and make the experience smoother.\nOnly use this while playing a Cinematic!");
                 #endregion
                 #region Speed Adjustments
-                if (ImGui.SliderInt("Speed", ref currentSpeedValue, 1, 20)) on_slider_drag(currentSpeedValue);
+                if (ImGui.SliderInt("Speed", ref currentSpeedValue, 1, 200)) on_slider_drag(currentSpeedValue);
                 ImTools.ApplyTooltip(
                     "Speed of how fast the current cinematic should be played at.\nHigher values may cause random crashes or lag issues.");
                 #endregion
@@ -116,12 +120,21 @@ namespace imSSOUtils.window.windows.modding
         }
 
         /// <summary>
+        /// Called when the user presses on the Smooth button.
+        /// </summary>
+        private void on_smooth_click()
+        {
+            if (!MemoryAdapter.is_enabled()) return;
+            MemoryAdapter.direct_call("Game->HorseSkin->Pelvis::SetSkinMeshAnimationSpeed(0);");
+        }
+
+        /// <summary>
         /// Called when the speed slider has had its value changed.
         /// </summary>
         /// <param name="value">The current value</param>
         private void on_slider_drag(int value)
         {
-            if (currentSpeedValue is < 1 or > 20) currentSpeedValue = 1;
+            if (currentSpeedValue is < 1 or > 200) currentSpeedValue = 1;
             CinematicaCore.set_speed(value);
         }
 

@@ -15,7 +15,7 @@ namespace imSSOUtils.adapters
         /// <summary>
         /// All directories.
         /// </summary>
-        private const string cmods = "CMods", skyPresets = "Sky Presets";
+        private const string cmods = "CMods", sliderPresets = "Slider Presets";
         #endregion
 
         /// <summary>
@@ -24,22 +24,23 @@ namespace imSSOUtils.adapters
         public static void initialize()
         {
             setup_cmods();
-            setup_sky_presets();
+            setup_slider_presets();
         }
 
         /// <summary>
-        /// Create a new (or if already present, override) sky preset.
+        /// Create a new (or if already present, override) slider preset.
         /// </summary>
         /// <param name="name">The presets name</param>
-        public static void create_sky_preset(string name)
+        public static void create_slider_preset(string name)
         {
             try
             {
-                var file = $"{skyPresets}\\{name}.skp";
+                var file = $"{sliderPresets}\\{name}.spp";
                 if (File.Exists(file)) File.Delete(file);
                 File.Create(file).Close();
                 var result = string.Empty;
                 foreach (var entry in ModOption.f_sliders) result += $"{entry.Key}|{entry.Value}\n";
+                foreach (var entry in ModOption.i_sliders) result += $"{entry.Key}|{entry.Value}\n";
                 File.WriteAllText(file, result);
             }
             catch (Exception e)
@@ -49,21 +50,24 @@ namespace imSSOUtils.adapters
         }
 
         /// <summary>
-        /// Load a sky preset.
+        /// Load a slider preset.
         /// </summary>
         /// <param name="name">The presets name</param>
-        public static void load_sky_preset(string name)
+        public static void load_slider_preset(string name)
         {
             try
             {
-                var file = $"{skyPresets}\\{name}.skp";
+                var file = $"{sliderPresets}\\{name}.spp";
                 if (!File.Exists(file)) return;
                 const char splitCar = '|';
                 var lines = File.ReadAllLines(file);
                 for (var i = 0; i < lines.Length; i++)
                 {
                     var split = lines[i].Split(splitCar);
-                    ModOption.f_sliders[split[0]] = Convert.ToSingle(split[1]);
+                    if (split[0].StartsWith("float"))
+                        ModOption.f_sliders[split[0]] = Convert.ToSingle(split[1]);
+                    else if (split[0].StartsWith("int"))
+                        ModOption.i_sliders[split[0]] = Convert.ToInt32(split[1]);
                 }
             }
             catch (Exception e)
@@ -73,11 +77,11 @@ namespace imSSOUtils.adapters
         }
 
         /// <summary>
-        /// Setup the Sky Presets directory
+        /// Setup the Slider Presets directory
         /// </summary>
-        private static void setup_sky_presets()
+        private static void setup_slider_presets()
         {
-            if (!Directory.Exists(skyPresets)) Directory.CreateDirectory(skyPresets);
+            if (!Directory.Exists(sliderPresets)) Directory.CreateDirectory(sliderPresets);
         }
 
         /// <summary>

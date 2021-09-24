@@ -37,25 +37,27 @@ namespace imSSOUtils.window.windows
             }
 
             ImGui.SetWindowSize(windowSize);
-            ImTools.CentreText("SAVE MANAGER - PREVIEW");
+            ImTools.CentreText("SAVE MANAGER");
             ImGui.Separator();
             draw_sky_section();
         }
 
         /// <summary>
-        /// Draws the save sky section.
+        /// Draws the save render section.
         /// </summary>
         private void draw_sky_section()
         {
-            if (!ImGui.CollapsingHeader("Sky Modifier")) return;
+            if (!ImGui.CollapsingHeader("Slider Config")) return;
+            ImTools.CentreText("This saves all sliders current values");
+            ImTools.CentreText("to a new file.");
             ImGui.PushItemWidth(253 + 20);
             ImGui.InputText(string.Empty, data, 100);
             ImGui.PopItemWidth();
             if (ImGui.Button("Save", buttonSize))
-                FileAdapter.create_sky_preset(Encoding.UTF8.GetString(data).Replace("\u0000", string.Empty));
+                FileAdapter.create_slider_preset(Encoding.UTF8.GetString(data).Replace("\u0000", string.Empty));
             ImGui.SameLine(146.3f);
             if (ImGui.Button("Load", buttonSize))
-                FileAdapter.load_sky_preset(Encoding.UTF8.GetString(data).Replace("\u0000", string.Empty));
+                FileAdapter.load_slider_preset(Encoding.UTF8.GetString(data).Replace("\u0000", string.Empty));
         }
 
         protected internal override void initialize() => identifier = "Save Manager";

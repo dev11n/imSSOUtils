@@ -30,7 +30,7 @@ namespace imSSOUtils.window.windows
         {
             ImGui.SameLine(-1);
             ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 4);
-            ImGui.InputTextMultiline(string.Empty, ref content, 1000, new Vector2(765, 314));
+            ImGui.InputTextMultiline(string.Empty, ref content, 9000, new Vector2(765, 314));
             format();
         }
 

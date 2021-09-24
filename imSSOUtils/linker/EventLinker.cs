@@ -1,5 +1,6 @@
 ﻿using imSSOUtils.adapters;
 using imSSOUtils.cache;
+using imSSOUtils.cache.entities;
 using imSSOUtils.window.windows;
 
 namespace imSSOUtils.linker

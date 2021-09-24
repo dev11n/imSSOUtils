@@ -152,8 +152,8 @@ namespace imSSOUtils.adapters.low_level
                         return;
                     }
 
-                    // ! Not found, close the program
-                    Program.write_crash(new ExternalException("Failed finding CVar_01!"));
+                    if (fixedAddress is "" or {Length: < 3})
+                        ConsoleWindow.send_input("CAN'T FIND CVAR_01!", "[fatal]", Color.OrangeRed);
                 }
             }
 
@@ -178,8 +178,8 @@ namespace imSSOUtils.adapters.low_level
                         return;
                     }
 
-                    // ! Not found, close the program
-                    Program.write_crash(new ExternalException("Failed finding CVar_02!"));
+                    if (fixedAddress is "" or {Length: < 3})
+                        ConsoleWindow.send_input("CAN'T FIND CVAR_02!", "[fatal]", Color.OrangeRed);
                 }
 
             hasCached02 = false;

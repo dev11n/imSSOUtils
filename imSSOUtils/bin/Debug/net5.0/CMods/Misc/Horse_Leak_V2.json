@@ -1,0 +1,15 @@
+{
+  "name": "Horse_Leak_V2",
+  "category": "Misc",
+  "code": "",
+  "inputText_Body": "",
+  "inputText_Skin": "",
+  "button_Spawn": "Game->Silverglade->Gameplay_E01->QC40->Crane::FileObjectUnLoad();\nGame->Silverglade->Gameplay_E01->QC40->Crane::SetFileObjectName(\"inputText_Body\");\nGame->Silverglade->Gameplay_E01->QC40->Crane::FileObjectLoad();\nGame->Silverglade->Gameplay_E01->QC40->Crane::Move(CurrentHorse);",
+  "button_Apply_Skin": "Game->Silverglade->Gameplay_E01->QC40->Crane->Pelvis::SetSkinMeshSubsetMaterial(\"HorseBody\", \"inputText_Skin\");",
+  "inputText_Current_Anim": "",
+  "inputText_Next_Anim": "",
+  "checkbox_Root_Motion": "",
+  "button_Apply_Animations": "Game->Silverglade->Gameplay_E01->QC40->Crane->Pelvis::SetSkinMeshAnimation(\"inputText_Current_Anim\");\nGame->Silverglade->Gameplay_E01->QC40->Crane->Pelvis::SetSkinMeshNextAnimation(\"inputText_Next_Anim\");\nGame->Silverglade->Gameplay_E01->QC40->Crane->Pelvis::SetApplyRootMotion(checkbox_Root_Motion);",
+  "inputText_Anim_Speed": "",
+  "button_Apply_Speed": "Game->Silverglade->Gameplay_E01->QC40->Crane->Pelvis::SetSkinMeshAnimationSpeed(\"inputText_Anim_Speed\");"
+}

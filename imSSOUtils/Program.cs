@@ -70,7 +70,7 @@ namespace imSSOUtils
                 PXOverlay.begin_check();
                 // ! KeyboardHook.start(); -- This has major performance issues and should be rewritten!
                 Overlay.RunInfiniteLoop();
-                dispose();
+                //dispose();
             }
             catch (Exception e)
             {
@@ -85,11 +85,11 @@ namespace imSSOUtils
         /// <param name="e"></param>
         public static void write_crash(Exception e)
         {
-            dispose();
             if (Debugger.IsAttached) return;
             var crash = $"crashlog_{DateTime.Now}.log";
             File.Create(crash).Close();
             File.WriteAllText(crash, $"-- EXCEPTION: {e.GetType()}\n-- MESSAGE: {e.Message}\n-- TRACE:\n{e}");
+            dispose();
             Environment.Exit(-1);
         }
 

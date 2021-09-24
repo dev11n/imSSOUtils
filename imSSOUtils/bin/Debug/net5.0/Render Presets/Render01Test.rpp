@@ -1,0 +1,15 @@
+floatSlider_Colour_R|1
+floatSlider_Colour_G|1
+floatSlider_Colour_B|1
+floatSlider_Colour_A|1
+floatSlider_Horizon_R|1
+floatSlider_Horizon_G|1
+floatSlider_Horizon_B|1
+floatSlider_Horizon_A|1
+floatSlider_Colour_Mix|0.853
+floatSlider_Fog_Mix|0.38
+floatSlider_Fog_Near|-1500
+floatSlider_Fog_Far|1500
+floatSlider_Fade|0.815
+floatSlider_Vertic._Force|10
+floatSlider_Horiz._Force|16

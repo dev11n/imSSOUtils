@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using imClickable;
 using ImGuiNET;
 using imSSOUtils.adapters;
 using imSSOUtils.adapters.low_level;
@@ -32,17 +33,19 @@ namespace imSSOUtils.window.windows
             ImGui.SetNextWindowPos(pos);
             ImGui.SetNextWindowBgAlpha(0);
             ImGui.Begin(identifier, NoInputs | NoCollapse | NoTitleBar | AlwaysAutoResize | NoResize);
+            ImGui.PushFont(ImGuiController.inconsolata_Regular);
             ImGui.Text(identifier);
             var horsePos = PXInternal.get_horse_position();
             ImGui.Text($"Current Horse Position: {horsePos.X}, {horsePos.Y}, {horsePos.Z}");
             ImGui.Text(
                 $"Modding state: {(MemoryAdapter.is_enabled() && CVar.hasCachedAll ? "Enabled" : "Corrupted")} (alpine_v2_exp)");
-            if (log_text.Length >= 5)
+            if (log_text is {Length: >= 5})
             {
                 ImGui.NewLine();
                 ImGui.Text(log_text);
             }
 
+            ImGui.PopFont();
             ImGui.End();
         }
 

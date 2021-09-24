@@ -1,0 +1,5 @@
+{
+  "name": "DV_Filter",
+  "category": "Visual",
+  "code": "Game->PostEffectHandler::SetFilter(10);\nGame->PostEffectHandler::SetFilterFade(1);\nGame->GlobalTimer::SetTimerTime(21);\nif (Game->GlobalTimer::GetTimerMulTime() >= 21) >> Game->PostEffectHandler::SetEnableLUT(1); <<\nelse if (Game->GlobalTimer::GetTimerMulTime() <= 3) >> Game->PostEffectHandler::SetEnableLUT(1); <<\nelse if (Game->GlobalTimer::GetTimerMulTime() is 22) >> Game->PostEffectHandler::SetEnableLUT(1); <<\nelse >> Game->PostEffectHandler::SetEnableLUT(0); <<\nCurrentHorse::Move(Game->MoorlandStable);"
+}

@@ -36,7 +36,7 @@ namespace imSSOUtils.adapters
         /// <summary>
         /// Custom directories
         /// </summary>
-        private const string cmods = "CMods", skyPresets = "Sky Presets";
+        private const string cmods = "CMods";
 
         /// <summary>
         /// Initialize Alpine.

@@ -9,7 +9,7 @@ namespace imSSOUtils.mod.option.@static
     /// <summary>
     /// Adds support for options in mods.
     /// </summary>
-    internal class ModOption
+    internal readonly struct ModOption
     {
         #region Variables
         /// <summary>
@@ -19,7 +19,9 @@ namespace imSSOUtils.mod.option.@static
             checkboxStart = "checkbox_",
             inputTextStart = "inputText_",
             floatSliderStart = "floatSlider_",
-            buttonInvokeStart = "buttonInvoke_";
+            buttonInvokeStart = "buttonInvoke_",
+            centreTextStart = "centreText_",
+            intSliderStart = "intSlider_";
 
         /// <summary>
         /// All checkboxes.
@@ -35,6 +37,11 @@ namespace imSSOUtils.mod.option.@static
         /// All float sliders.
         /// </summary>
         public static readonly Dictionary<string, float> f_sliders = new();
+
+        /// <summary>
+        /// All int sliders.
+        /// </summary>
+        public static readonly Dictionary<string, int> i_sliders = new();
 
         /// <summary>
         /// Button size.
@@ -62,10 +69,18 @@ namespace imSSOUtils.mod.option.@static
                     draw_checkbox(name);
                 if (name.StartsWith(inputTextStart))
                     draw_inputtext(name);
+                if (name.StartsWith(centreTextStart))
+                    draw_centred_text(name);
                 if (name.StartsWith(floatSliderStart))
                 {
                     var split = property.Value.ToString().Split('|');
                     draw_float_slider(name, Convert.ToSingle(split[0]), Convert.ToSingle(split[1]));
+                }
+
+                if (name.StartsWith(intSliderStart))
+                {
+                    var split = property.Value.ToString().Split('|');
+                    draw_int_slider(name, Convert.ToInt32(split[0]), Convert.ToInt32(split[1]));
                 }
             }
 
@@ -81,7 +96,8 @@ namespace imSSOUtils.mod.option.@static
         {
             var text = mod.raw.ToString();
             return text.Contains(buttonStart) || text.Contains(checkboxStart) || text.Contains(inputTextStart) ||
-                   text.Contains(floatSliderStart) || text.Contains(buttonInvokeStart);
+                   text.Contains(floatSliderStart) || text.Contains(buttonInvokeStart) || text.Contains(centreTextStart)
+                   || text.Contains(intSliderStart);
         }
 
         /// <summary>
@@ -104,8 +120,18 @@ namespace imSSOUtils.mod.option.@static
             var name = text.Replace(checkboxStart, string.Empty).Replace('_', ' ');
             if (!checkboxes.ContainsKey(text)) checkboxes.Add(text, false);
             var current = checkboxes[text];
-            ImGui.Checkbox(name, ref current);
-            checkboxes[text] = current;
+            if (ImGui.Checkbox(name, ref current))
+                checkboxes[text] = current;
+        }
+
+        /// <summary>
+        /// Draw a new centred text control.
+        /// </summary>
+        /// <param name="text"></param>
+        private static void draw_centred_text(string text)
+        {
+            var name = text.Replace(centreTextStart, string.Empty).Replace('_', ' ');
+            ImTools.CentreText(name);
         }
 
         /// <summary>
@@ -121,7 +147,7 @@ namespace imSSOUtils.mod.option.@static
         }
 
         /// <summary>
-        /// Draw a new InputText.
+        /// Draw a new float slider.
         /// </summary>
         /// <param name="text"></param>
         /// <param name="minValue"></param>
@@ -133,6 +159,21 @@ namespace imSSOUtils.mod.option.@static
             ImGui.SliderFloat(text.Replace(floatSliderStart, string.Empty).Replace('_', ' '), ref current, minValue,
                 maxValue);
             f_sliders[text] = current;
+        }
+
+        /// <summary>
+        /// Draw a new int slider.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="minValue"></param>
+        /// <param name="maxValue"></param>
+        private static void draw_int_slider(string text, int minValue, int maxValue)
+        {
+            if (!i_sliders.ContainsKey(text)) i_sliders.Add(text, 0);
+            var current = i_sliders[text];
+            ImGui.SliderInt(text.Replace(floatSliderStart, string.Empty).Replace('_', ' '), ref current, minValue,
+                maxValue);
+            i_sliders[text] = current;
         }
     }
 }

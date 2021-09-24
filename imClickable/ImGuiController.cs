@@ -26,10 +26,7 @@ namespace imClickable
         private Texture _fontTexture;
         private Pipeline _pipeline;
 
-        public static ImFontPtr comfortaa_SemiBold_Large,
-            comfortaa_SemiBold_Main,
-            comfortaa_SemiBold_Medium,
-            comfortaa_SemiBold_Small;
+        public static ImFontPtr comfortaa_SemiBold_Large, comfortaa_SemiBold_Main, inconsolata_Regular;
 
         private readonly IntPtr _fontAtlasID = (IntPtr) 1;
         private bool _controlDown, _shiftDown, _altDown, _winKeyDown;
@@ -57,15 +54,14 @@ namespace imClickable
             ImGui.SetCurrentContext(context);
             // Begin fonts
             ImGui.GetIO().Fonts.AddFontDefault();
-            var path = Path.Combine(Environment.CurrentDirectory, @"assets\fonts\comfortaa\");
+            var cmf = Path.Combine(Environment.CurrentDirectory, @"assets\fonts\comfortaa\");
+            var inc = Path.Combine(Environment.CurrentDirectory, @"assets\fonts\inconsolata\");
             comfortaa_SemiBold_Main =
-                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(path, "Comfortaa-SemiBold.ttf"), 14);
+                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(cmf, "Comfortaa-SemiBold.ttf"), 14);
             comfortaa_SemiBold_Large =
-                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(path, "Comfortaa-SemiBold.ttf"), 18);
-            comfortaa_SemiBold_Medium =
-                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(path, "Comfortaa-SemiBold.ttf"), 12);
-            comfortaa_SemiBold_Small =
-                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(path, "Comfortaa-SemiBold.ttf"), 10);
+                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(cmf, "Comfortaa-SemiBold.ttf"), 18);
+            inconsolata_Regular =
+                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(inc, "Inconsolata-Regular.ttf"), 12);
             // End fonts
             CreateDeviceResources(gd, outputDescription);
             SetKeyMappings();

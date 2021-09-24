@@ -9,7 +9,7 @@ namespace imSSOUtils.mod.option.dynamic
     /// <summary>
     /// Adds support for options in custom mods.
     /// </summary>
-    internal class CModOption
+    internal readonly struct CModOption
     {
         #region Variables
         /// <summary>
@@ -97,8 +97,8 @@ namespace imSSOUtils.mod.option.dynamic
             var name = text.Replace(checkboxStart, string.Empty).Replace('_', ' ');
             if (!checkboxes.ContainsKey(text)) checkboxes.Add(text, false);
             var current = checkboxes[text];
-            ImGui.Checkbox(name, ref current);
-            checkboxes[text] = current;
+            if (ImGui.Checkbox(name, ref current))
+                checkboxes[text] = current;
         }
 
         /// <summary>
@@ -109,8 +109,8 @@ namespace imSSOUtils.mod.option.dynamic
         {
             if (!inputTexts.ContainsKey(text)) inputTexts.Add(text, new byte[100]);
             var current = inputTexts[text];
-            ImGui.InputText(text.Replace(inputTextStart, string.Empty).Replace('_', ' '), current, 100);
-            inputTexts[text] = current;
+            if (ImGui.InputText(text.Replace(inputTextStart, string.Empty).Replace('_', ' '), current, 100))
+                inputTexts[text] = current;
         }
     }
 }

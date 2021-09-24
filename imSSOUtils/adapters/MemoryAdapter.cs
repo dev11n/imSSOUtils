@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using imSSOUtils.adapters.low_level;
 using imSSOUtils.cache;
+using imSSOUtils.cache.entities;
 using imSSOUtils.hooks.low_level;
 using imSSOUtils.mod.option.dynamic;
 using imSSOUtils.mod.option.@static;
@@ -84,8 +85,8 @@ namespace imSSOUtils.adapters
             sync_position(ssoClient);
             // ! Cache cvar
             await CVar.setup_cvar();
-            Player.initialize();
-            EventHook.plug();
+            //Player.initialize();
+            //EventHook.plug();
             show_white_message("SSOUtils loaded successfully. Have fun and keep the experience fair for everyone!");
         }
 
@@ -108,19 +109,21 @@ namespace imSSOUtils.adapters
             var processed = input;
             // ? Dynamic Mods
             foreach (var checkbox in CModOption.checkboxes)
-                processed = processed.Replace(checkbox.Key, checkbox.Value ? "1" : "0");
+                processed = processed.Replace(checkbox.Key, Convert.ToInt32(checkbox.Value).ToString());
             foreach (var inputText in CModOption.inputTexts)
                 processed = processed.Replace(inputText.Key,
                     Encoding.UTF8.GetString(inputText.Value).Replace("\u0000", string.Empty));
             // ? Static Mods
             foreach (var checkbox in ModOption.checkboxes)
-                processed = processed.Replace(checkbox.Key, checkbox.Value ? "1" : "0");
+                processed = processed.Replace(checkbox.Key, Convert.ToInt32(checkbox.Value).ToString());
             foreach (var inputText in ModOption.inputTexts)
                 processed = processed.Replace(inputText.Key,
                     Encoding.UTF8.GetString(inputText.Value).Replace("\u0000", string.Empty));
             foreach (var floatSlider in ModOption.f_sliders)
                 processed = processed.Replace(floatSlider.Key,
                     floatSlider.Value.ToString(CultureInfo.InvariantCulture).Replace(".", "::"));
+            foreach (var intSlider in ModOption.i_sliders)
+                processed = processed.Replace(intSlider.Key, intSlider.Value.ToString(CultureInfo.InvariantCulture));
             return processed;
         }
 

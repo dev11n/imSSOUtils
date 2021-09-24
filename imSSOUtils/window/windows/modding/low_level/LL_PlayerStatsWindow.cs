@@ -5,9 +5,10 @@ using ImGuiNET;
 using imSSOUtils.adapters;
 using imSSOUtils.adapters.low_level;
 using imSSOUtils.cache;
+using imSSOUtils.cache.entities;
 using static imClickable.ImGuiController;
 using static ImGuiNET.ImGuiWindowFlags;
-using static imSSOUtils.cache.Player;
+using static imSSOUtils.cache.entities.Player;
 
 namespace imSSOUtils.window.windows.modding.low_level
 {
@@ -152,7 +153,8 @@ namespace imSSOUtils.window.windows.modding.low_level
             {
                 retry++;
                 if (retry < 5) fetch_e();
-                else Environment.Exit(-1);
+                // BUG: This doesn't work well, so uncomment it when a fix has been implemented.
+                // else Environment.Exit(-1);
             }
         }
     }
