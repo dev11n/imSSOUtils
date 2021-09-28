@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
+using System.Numerics;
+using imSSOUtils.cores;
 using imSSOUtils.customs;
 using imSSOUtils.mod.option.@static;
 using Newtonsoft.Json.Linq;
+using static System.Convert;
 
 namespace imSSOUtils.adapters
 {
@@ -15,7 +18,7 @@ namespace imSSOUtils.adapters
         /// <summary>
         /// All directories.
         /// </summary>
-        private const string cmods = "CMods", sliderPresets = "Slider Presets";
+        private const string cmods = "CMods", sliderPresets = "Slider Presets", objects = "Object Presets";
         #endregion
 
         /// <summary>
@@ -25,6 +28,7 @@ namespace imSSOUtils.adapters
         {
             setup_cmods();
             setup_slider_presets();
+            setup_object_presets();
         }
 
         /// <summary>
@@ -50,6 +54,95 @@ namespace imSSOUtils.adapters
         }
 
         /// <summary>
+        /// Create a new (or if already present, override) object preset.
+        /// </summary>
+        /// <param name="name">The presets name</param>
+        public static void create_object_preset(string name)
+        {
+            try
+            {
+                var file = $"{objects}\\{name}.spo";
+                if (File.Exists(file)) File.Delete(file);
+                File.Create(file).Close();
+                var result = string.Empty;
+                var spawnPos = SpawnerCore.spawnerPosition;
+                var sObjects = SpawnerCore.objects;
+                result += $"{spawnPos.X},{spawnPos.Y},{spawnPos.Z}\n";
+                for (var i = 0; i < sObjects.Count; i++)
+                {
+                    var current = sObjects[i];
+                    Vector3 currentPos = current.worldSpacePosition,
+                        currentScale = current.scale;
+                    var currentIdentifier = current.identifier;
+                    /*
+                     * Structure:
+                     * 0 -> Identifier
+                     * 1 -> PosX
+                     * 2 -> PosY
+                     * 3 -> PosZ
+                     * 4 -> ScaleX
+                     * 5 -> ScaleY
+                     * 6 -> ScaleZ
+                     * 7 = RotX
+                     * 8 = RotY
+                     * 9 = RotZ
+                     */
+                    result +=
+                        $"{currentIdentifier},{currentPos.X},{currentPos.Y},{currentPos.Z},{currentScale.X},{currentScale.Y},{currentScale.Z}\n";
+                }
+
+                File.WriteAllText(file, result);
+            }
+            catch (Exception e)
+            {
+                Program.write_crash(e);
+            }
+        }
+
+        /// <summary>
+        /// Load a object preset.
+        /// </summary>
+        /// <param name="name">The presets name</param>
+        public static void load_object_preset(string name)
+        {
+            try
+            {
+                var file = $"{objects}\\{name}.spo";
+                if (!File.Exists(file) || SpawnerCore.isInitialized) return;
+                const char splitCar = ',';
+                var lines = File.ReadAllLines(file);
+                var firstLine = lines[0].Split(splitCar);
+                SpawnerCore.deactivate(true);
+                SpawnerCore.spawnerPosition =
+                    new Vector3(ToSingle(firstLine[0]), ToSingle(firstLine[1]), ToSingle(firstLine[2]));
+                for (var i = 1; i < lines.Length; i++)
+                {
+                    var split = lines[i].Split(splitCar);
+                    /*
+                     * Structure:
+                     * 0 -> Identifier
+                     * 1 -> PosX
+                     * 2 -> PosY
+                     * 3 -> PosZ
+                     * 4 -> ScaleX
+                     * 5 -> ScaleY
+                     * 6 -> ScaleZ
+                     * 7 = RotX
+                     * 8 = RotY
+                     * 9 = RotZ
+                     */
+                    SpawnerCore.objects.Add(new PXFileObject(split[0],
+                        new Vector3(ToSingle(split[1]), ToSingle(split[2]), ToSingle(split[3])),
+                        new Vector3(ToSingle(split[4]), ToSingle(split[5]), ToSingle(split[6]))));
+                }
+            }
+            catch (Exception e)
+            {
+                Program.write_crash(e);
+            }
+        }
+
+        /// <summary>
         /// Load a slider preset.
         /// </summary>
         /// <param name="name">The presets name</param>
@@ -65,9 +158,9 @@ namespace imSSOUtils.adapters
                 {
                     var split = lines[i].Split(splitCar);
                     if (split[0].StartsWith("float"))
-                        ModOption.f_sliders[split[0]] = Convert.ToSingle(split[1]);
+                        ModOption.f_sliders[split[0]] = ToSingle(split[1]);
                     else if (split[0].StartsWith("int"))
-                        ModOption.i_sliders[split[0]] = Convert.ToInt32(split[1]);
+                        ModOption.i_sliders[split[0]] = ToInt32(split[1]);
                 }
             }
             catch (Exception e)
@@ -82,6 +175,14 @@ namespace imSSOUtils.adapters
         private static void setup_slider_presets()
         {
             if (!Directory.Exists(sliderPresets)) Directory.CreateDirectory(sliderPresets);
+        }
+
+        /// <summary>
+        /// Setup the Object Presets directory
+        /// </summary>
+        private static void setup_object_presets()
+        {
+            if (!Directory.Exists(objects)) Directory.CreateDirectory(objects);
         }
 
         /// <summary>

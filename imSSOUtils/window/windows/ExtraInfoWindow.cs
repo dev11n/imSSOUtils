@@ -3,6 +3,7 @@ using imClickable;
 using ImGuiNET;
 using imSSOUtils.adapters;
 using imSSOUtils.adapters.low_level;
+using imSSOUtils.cores;
 using static ImGuiNET.ImGuiWindowFlags;
 
 namespace imSSOUtils.window.windows
@@ -39,6 +40,7 @@ namespace imSSOUtils.window.windows
             ImGui.Text($"Current Horse Position: {horsePos.X}, {horsePos.Y}, {horsePos.Z}");
             ImGui.Text(
                 $"Modding state: {(MemoryAdapter.is_enabled() && CVar.hasCachedAll ? "Enabled" : "Corrupted")} (alpine_v2_exp)");
+            //ImGui.Text(SpawnerCore.closestObject);
             if (log_text is {Length: >= 5})
             {
                 ImGui.NewLine();

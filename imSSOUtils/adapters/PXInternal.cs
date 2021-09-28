@@ -103,32 +103,11 @@ namespace imSSOUtils.adapters
         }
 
         /// <summary>
-        /// Show a generic text window.
-        /// </summary>
-        /// <param name="headline"></param>
-        /// <param name="text"></param>
-        public static void show_generic_window(string headline, string text) => MemoryAdapter.direct_call(
-            $"\nGame->GenericRequestWindow2->Headline::SetViewText(\"{headline}\");\n" +
-            $"\nGame->GenericRequestWindow2->Message::SetViewText(\"{text}\");\n" +
-            "Game->GenericRequestWindow2::Start();\n" +
-            "Game->ReportWindow::SetScaleX(0);");
-
-        /// <summary>
         /// Get the current horse state.
         /// </summary>
         /// <returns></returns>
         public static HorseState get_horse_state() =>
             (HorseState) MemoryAdapter.head.get_consult().Memory.read_int(state);
-
-        /// <summary>
-        /// Displays a basic middle-aligned text message.
-        /// </summary>
-        /// <param name="text"></param>
-        public static void show_white_message(string text) => MemoryAdapter.direct_call(
-            $"Game->GUI_RescueRanch_InfoText::SetViewText( \"{text}\" );\n" +
-            "Game->GUI_RescueRanch_InfoText::Start();\n" +
-            "Game->GUI_RescueRanch_InfoText->Duration::Start();\n" +
-            "Game->ReportWindow::SetScaleX(0);");
 
         /// <summary>
         /// Get the child count of a specific object.
@@ -163,21 +142,6 @@ namespace imSSOUtils.adapters
             // ! Enable again
             MemoryAdapter.print_autofix_errors(true);
             return CVar.read_cvar01_string();
-        }
-
-        /// <summary>
-        /// Draws the current location.
-        /// </summary>
-        /// <returns></returns>
-        public static void draw_current_location()
-        {
-            const string code =
-                "if (Game->GlobalTempStringData::GetDataString() is not Game->LocationNameMiniMap::GetViewText()) >>\n" +
-                "Game->InfoTextWindow3::SetViewText(Game->LocationNameMiniMap::GetViewText());\n" +
-                "Game->InfoTextWindow3::SetViewTextColor(1, 1, 1, 1);\n" +
-                "Game->InfoTextWindow3::Start();\n<<\n" +
-                "Game->GlobalTempStringData::SetDataString(Game->LocationNameMiniMap::GetViewText());";
-            MemoryAdapter.direct_call(code);
         }
     }
 }

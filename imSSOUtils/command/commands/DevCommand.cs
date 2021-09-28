@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Numerics;
 using System.Threading;
 using imSSOUtils.adapters;
-using imSSOUtils.adapters.low_level;
+using imSSOUtils.cache.objects;
 using imSSOUtils.window.windows;
 
 namespace imSSOUtils.command.commands
@@ -13,6 +15,9 @@ namespace imSSOUtils.command.commands
     /// </summary>
     internal class DevCommand : ICommand
     {
+        private Vector3 mainPos;
+        private readonly Dictionary<Vector3, string> objectPos = new();
+
         /// <summary>
         /// Execute the command.
         /// </summary>
@@ -24,9 +29,8 @@ namespace imSSOUtils.command.commands
             {
                 new Thread(() =>
                 {
-                    ConsoleWindow.send_input($"last value: {CVar.read_cvar02_string()}", "[developer]", Color.White);
-                    CVar.write_cvar02("HEYYY" + new Random().Next(0, 4214));
-                    ConsoleWindow.send_input($"current value: {CVar.read_cvar02_string()}", "[developer]", Color.White);
+                    var vc = Orientation.get_rotation("CurrentHorse");
+                    ConsoleWindow.send_input($"rot: {vc.X}, {vc.Y}, {vc.Z}", "[dev]", Color.White);
                 }).Start();
             }
             catch (Exception e)

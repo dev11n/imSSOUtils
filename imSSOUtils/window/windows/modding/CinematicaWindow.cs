@@ -2,7 +2,7 @@
 using System.Text;
 using ImGuiNET;
 using imSSOUtils.adapters;
-using imSSOUtils.cinematica;
+using imSSOUtils.cores;
 using imSSOUtils.registers;
 using static ImGuiNET.ImGuiWindowFlags;
 

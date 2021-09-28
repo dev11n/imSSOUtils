@@ -28,7 +28,7 @@ namespace imSSOUtils.mod.mods.Visual
                 modTimer = new Timer(_ =>
                 {
                     isRunning = true;
-                    alpine_execute("if (Game->GameUI::GetActive() is 1) >>\n" +
+                    alpine_execute("if (Game->GameUI::GetActive() == 1) >>\n" +
                                    "SetHorseAppearance(Game->SelectedHorseForSale::GetHorseDataID());\n<<");
                 }, null, 0, 1500);
         }

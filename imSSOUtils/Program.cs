@@ -8,6 +8,7 @@ using Coroutine;
 using imClickable;
 using ImGuiNET;
 using imSSOUtils.adapters;
+using imSSOUtils.adapters.low_level;
 using imSSOUtils.command;
 using imSSOUtils.command.commands;
 using imSSOUtils.mod;
@@ -63,14 +64,15 @@ namespace imSSOUtils
                 FileAdapter.initialize();
                 Alpine.initialize_ascript();
                 await WebAdapter.cache_api();
+                await UNSFScript.begin();
                 if (!Debugger.IsAttached) await verify_version();
                 CoroutineHandler.Start(SubmitRenderLogic());
-                //if (!Debugger.IsAttached)
+                if (!Debugger.IsAttached)
                     patch();
                 PXOverlay.begin_check();
                 // ! KeyboardHook.start(); -- This has major performance issues and should be rewritten!
                 Overlay.RunInfiniteLoop();
-                //dispose();
+                dispose();
             }
             catch (Exception e)
             {

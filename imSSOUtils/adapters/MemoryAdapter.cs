@@ -7,9 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using imSSOUtils.adapters.low_level;
-using imSSOUtils.cache;
-using imSSOUtils.cache.entities;
-using imSSOUtils.hooks.low_level;
+using imSSOUtils.cache.visual;
 using imSSOUtils.mod.option.dynamic;
 using imSSOUtils.mod.option.@static;
 using imSSOUtils.window.windows;
@@ -87,7 +85,8 @@ namespace imSSOUtils.adapters
             await CVar.setup_cvar();
             //Player.initialize();
             //EventHook.plug();
-            show_white_message("SSOUtils loaded successfully. Have fun and keep the experience fair for everyone!");
+            Text.show_white_message(
+                "SSOUtils loaded successfully. Have fun and keep the experience fair for everyone!");
         }
 
         /// <summary>
@@ -95,10 +94,11 @@ namespace imSSOUtils.adapters
         /// </summary>
         /// <param name="hex"></param>
         /// <param name="newValue"></param>
-        public static void replace_all(string hex, string newValue) => new Thread(async () =>
+        /// <param name="useDirty"></param>
+        public static void replace_all(string hex, string newValue, bool useDirty = true) => new Thread(async () =>
         {
             foreach (var result in await head.aob_scan(hex, true))
-                head.get_consult().Memory.write_string($"0x{result:X}", newValue);
+                head.get_consult().Memory.write_string($"0x{result:X}", newValue, useDirty);
         }).Start();
 
         /// <summary>

@@ -44,11 +44,12 @@ namespace imSSOUtils.window.windows.modding
             ImGui.SetWindowSize(main);
             draw_centre();
             ImGui.PushItemWidth(750);
-            ImTools.CentreText("Everything you write is automatically converted to Alpine!");
+            ImTools.CentreText("Everything you write has to be in PXScript!");
             if (!ImGui.InputText(string.Empty, data, 100, EnterReturnsTrue)) return;
             // ! Remove all "00" bytes, aka \u0000
-            var input = Alpine.proc_frm_string(Encoding.UTF8.GetString(data).Replace("\u0000", string.Empty));
-            get_child_objects(input);
+            var fixedString = Encoding.UTF8.GetString(data).Replace("\u0000", string.Empty);
+            var input = format(fixedString);
+            get_child_objects(input, fixedString);
             // Clear the buffer which also clears the input.
             Array.Clear(data, 0, data.Length);
         }
@@ -57,12 +58,33 @@ namespace imSSOUtils.window.windows.modding
         /// Add all child objects.
         /// </summary>
         /// <param name="input"></param>
-        private void get_child_objects(string input) => new Thread(() =>
+        /// <param name="rawInput"></param>
+        private void get_child_objects(string input, string rawInput) => new Thread(() =>
         {
-            var count = PXInternal.get_child_count(input);
+            var count = PXInternal.get_child_count(rawInput);
+            if (treeNodes.ContainsKey(rawInput)) treeNodes.Remove(rawInput);
             for (var i = 0; i < count; i++)
-                add_node(input, $"{i + 1} / {count}: {PXInternal.get_child_name(input, i)}");
+            {
+                var clone = i + 1;
+                add_node(rawInput, $"{clone} / {count}: {PXInternal.get_child_name(input, i)}");
+            }
         }).Start();
+
+        /// <summary>
+        /// Format to Alpine Script.
+        /// </summary>
+        private string format(string content)
+        {
+            var txt = content;
+            foreach (var set in Alpine.sets)
+            {
+                if (!txt.Contains(set.Value)) continue;
+                ImGui.SetWindowFocus("Misc");
+                txt = txt.Replace(set.Value, set.Key);
+            }
+
+            return txt;
+        }
 
         /// <summary>
         /// Add a value to a specific tree.
@@ -72,8 +94,8 @@ namespace imSSOUtils.window.windows.modding
         /// <param name="value"></param>
         private void add_node(string node, string value)
         {
-            if (!treeNodes.ContainsKey(node)) treeNodes.Add(node, value);
-            treeNodes[node] = treeNodes[node] += $"{value}\n";
+            if (!treeNodes.ContainsKey(node)) treeNodes.Add(node, $"{value}\n");
+            else treeNodes[node] = treeNodes[node] += $"{value}\n";
         }
 
         /// <summary>

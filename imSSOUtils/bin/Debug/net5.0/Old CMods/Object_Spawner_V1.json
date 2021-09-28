@@ -1,0 +1,9 @@
+{
+  "name": "Object_Spawner_V1",
+  "category": "Exploits",
+  "code": "->-> First\nGame->PreShadowWitches::FileObjectUnLoad();\nGame->PreShadowWitches::SetFileObjectName(\"FO_GHorse62_Keypose\");\nGame->PreShadowWitches::FileObjectLoad();\n->-> Second\nGame->CableWayExcavator::FileObjectUnLoad();\nGame->CableWayExcavator::SetFileObjectName(\"FO_GHorse62_Keypose\");\nGame->CableWayExcavator::FileObjectLoad();\n->-> Move\nGame->CableWayExcavator::Move(CurrentHorse);\nGame->PreShadowWitches::Move(CurrentHorse);",
+  "inputText_FO_Object": "",
+  "button_Set_FObject": "Game->PreShadowWitches->Pelvis->Bip001_Pelvis->Spine->Spine1->BackOnHorse::FileObjectUnLoad();\nGame->PreShadowWitches->Pelvis->Bip001_Pelvis->Spine->Spine1->BackOnHorse::SetFileObjectName(\"inputText_FO_Object\");\nGame->PreShadowWitches->Pelvis->Bip001_Pelvis->Spine->Spine1->BackOnHorse::FileObjectLoad();",
+  "button_Spawn": "Game->PreShadowWitches->Pelvis::SetSkinMeshAnimationSpeed(0);\nGame->PreShadowWitches->Pelvis->Bip001_Pelvis->Spine->Spine1->BackOnHorse::Move(CurrentHorse);\nGame->PreShadowWitches->Pelvis->Bip001_Pelvis->Spine->Spine1->BackOnHorse::AddPosition(0, 0::01, 0);\nGame->PreShadowWitches->Pelvis::Copy(Game->CableWayExcavator->Pelvis);\nGame->PreShadowWitches->Pelvis->Bip001_Pelvis->Spine->Spine1->BackOnHorse::Move(Game->PreShadowWitches);",
+  "button_Clear_All": "Game->PreShadowWitches::FileObjectUnLoad();\nGame->CableWayExcavator::FileObjectUnLoad();"
+}

@@ -1,4 +1,4 @@
-﻿using imSSOUtils.adapters;
+﻿using imSSOUtils.cache.visual;
 
 namespace imSSOUtils.mod.mods.Visual
 {
@@ -29,13 +29,9 @@ namespace imSSOUtils.mod.mods.Visual
         /// </summary>
         protected internal override void on_trigger()
         {
-            for (var i = 0; i < windows.Length; i++)
-            {
-                alpine_execute(windows[i]);
-                PXInternal.show_white_message($"{i + 1} / {windows.Length}");
-            }
-
-            PXInternal.show_white_message("Completed!");
+            Text.show_white_message("Processing...");
+            for (var i = 0; i < windows.Length; i++) alpine_execute(windows[i]);
+            Text.show_white_message("Completed!");
         }
 
         /// <summary>

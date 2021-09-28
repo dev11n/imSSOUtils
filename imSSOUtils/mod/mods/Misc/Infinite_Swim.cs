@@ -1,4 +1,4 @@
-﻿using imSSOUtils.adapters;
+﻿using imSSOUtils.cache.visual;
 
 namespace imSSOUtils.mod.mods.Misc
 {
@@ -13,7 +13,7 @@ namespace imSSOUtils.mod.mods.Misc
         protected internal override void on_trigger()
         {
             alpine_execute("Game->SwimActionBar::ForceKill();");
-            PXInternal.show_white_message("Swimming limit has been removed. Have fun!");
+            Text.show_white_message("Swimming limit has been removed. Have fun!");
         }
 
         /// <summary>

@@ -72,7 +72,8 @@ namespace imSSOUtils.window.windows
                 if (ImGui.Button("Show Alpine Editor", showButtonSize))
                     get_by_name("Alpine Editor").shouldDisplay = true;
                 if (ImGui.Button("Show Custom Mods", showButtonSize)) get_by_name("Custom Mods").shouldDisplay = true;
-                if (ImGui.Button("Show Custom Mods", showButtonSize)) get_by_name("Data Viewer").shouldDisplay = true;
+                if (ImGui.Button("Show Data Viewer", showButtonSize)) get_by_name("Data Viewer").shouldDisplay = true;
+                if (ImGui.Button("Show Spawner", showButtonSize)) get_by_name("Spawner").shouldDisplay = true;
             }
 
             if (MemoryAdapter.is_enabled()) ImGui.Checkbox("Show extra information", ref showExtraInfo);

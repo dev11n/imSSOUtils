@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Numerics;
+using imClickable;
 using ImGuiNET;
 using imSSOUtils.adapters;
 using static ImGuiNET.ImGuiWindowFlags;
@@ -28,9 +29,11 @@ namespace imSSOUtils.window.windows
         /// </summary>
         private void draw_text_area()
         {
+            ImGui.PushFont(ImGuiController.inconsolata_Regular);
             ImGui.SameLine(-1);
             ImGui.SetCursorPosY(ImGui.GetCursorPosY() - 4);
             ImGui.InputTextMultiline(string.Empty, ref content, 9000, new Vector2(765, 314));
+            ImGui.PopFont();
             format();
         }
 

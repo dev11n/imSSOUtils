@@ -3,6 +3,9 @@ using imSSOUtils.adapters;
 
 namespace imSSOUtils.cache.visual
 {
+    /// <summary>
+    /// Viewport-based functions
+    /// </summary>
     internal readonly struct Viewport
     {
         /// <summary>
@@ -26,5 +29,20 @@ namespace imSSOUtils.cache.visual
         /// <param name="index">The filter index</param>
         public static void set_filter(int index) =>
             MemoryAdapter.direct_call($"Game->PostEffectHandler::SetFilter({index});");
+
+        /// <summary>
+        /// Draws the current location.
+        /// </summary>
+        /// <returns></returns>
+        public static void draw_current_location()
+        {
+            const string code =
+                "if (Game->GlobalTempStringData::GetDataString() != Game->LocationNameMiniMap::GetViewText()) >>\n" +
+                "Game->InfoTextWindow3::SetViewText(Game->LocationNameMiniMap::GetViewText());\n" +
+                "Game->InfoTextWindow3::SetViewTextColor(1, 1, 1, 1);\n" + // Float RGBA: White
+                "Game->InfoTextWindow3::Start();\n<<\n" +
+                "Game->GlobalTempStringData::SetDataString(Game->LocationNameMiniMap::GetViewText());";
+            MemoryAdapter.direct_call(code);
+        }
     }
 }

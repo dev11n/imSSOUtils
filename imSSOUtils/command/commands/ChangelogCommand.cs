@@ -28,6 +28,9 @@ namespace imSSOUtils.command.commands
                 "ImGui.Bullet Updated the font used in \"Extra Information\" and \"Alpine Editor\"", empty, color);
             ConsoleWindow.send_input("ImGui.Bullet Cinematica now supports a higher max speed value", empty, color);
             ConsoleWindow.send_input("ImGui.Bullet Updated Save Manager", empty, color);
+            ConsoleWindow.send_input("ImGui.Bullet Updated Data Viewer", empty, color);
+            ConsoleWindow.send_input(
+                "ImGui.Bullet The \"Custom Mods\" Window can now be resized\n- Suggested by: biseukis", empty, color);
             ConsoleWindow.send_input("ImGui.Separator", empty, color);
             ConsoleWindow.send_input("Alpine / Scripting", empty, color);
             ConsoleWindow.send_input("ImGui.Separator", empty, color);
@@ -35,8 +38,12 @@ namespace imSSOUtils.command.commands
                 "ImGui.Bullet Fixed an issue where long script-code would still execute, even when removed", empty,
                 color);
             ConsoleWindow.send_input(
-                "ImGui.Bullet You can now use \"is\" (results in ==) and \"is not\" (results in !=) whilst scripting",
-                empty, color);
+                "ImGui.Bullet \"is\" and \"is not\" have been removed from Alpine due to formatting issues", empty,
+                color);
+            ConsoleWindow.send_input(
+                "ImGui.Bullet OTFE updated to v1.2 which aims to fix:\n- Random crashes\n- Issues finding CVar Addresses",
+                empty,
+                color);
         }
     }
 }

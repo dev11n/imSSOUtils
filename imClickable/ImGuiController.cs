@@ -61,7 +61,7 @@ namespace imClickable
             comfortaa_SemiBold_Large =
                 ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(cmf, "Comfortaa-SemiBold.ttf"), 18);
             inconsolata_Regular =
-                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(inc, "Inconsolata-Regular.ttf"), 12);
+                ImGui.GetIO().Fonts.AddFontFromFileTTF(Path.Combine(inc, "Inconsolata-Regular.ttf"), 15);
             // End fonts
             CreateDeviceResources(gd, outputDescription);
             SetKeyMappings();
