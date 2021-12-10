@@ -18,3 +18,7 @@ Jokes aside, if you really want to waste your time on this game then I assume ye
 It was a good run cheating on this game, you learn quite a lot about their engine just from spending time looking at the script code, reading the EXE's functions, etc.
 
 Whatever you do with this code is all up to you, I take **no responsibility what-so-ever for your actions with it**.
+# Note
+You **have** to follow the license attached in the repository, which lists what and what you cannot do with it.
+
+Remember, distributing it may have real-life consequences **if** Star Stable Online AB decides to escalate it and actually go for legal actions (which I highly doubt they wanna do, considering their past with IT-Security is quite shameful for being a game that targets 7-13 year-old children).
